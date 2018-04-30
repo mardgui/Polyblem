@@ -9,10 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import fr.unice.polytech.polyblem.declaration.DeclarationActivity;
-import android.view.View;
-
 import fr.unice.polytech.polyblem.bdd.Database;
+import fr.unice.polytech.polyblem.declaration.DeclarationActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Intent seeIncident = new Intent(MainActivity.this, IssueActivity.class);
+        seeIncident.putExtra("IdIncident", "1");
+        startActivity(seeIncident);
 
         Database db = new Database(getApplicationContext());
 
