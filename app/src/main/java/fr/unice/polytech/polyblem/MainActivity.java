@@ -3,6 +3,8 @@ package fr.unice.polytech.polyblem;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -13,6 +15,7 @@ import fr.unice.polytech.polyblem.declaration.DeclarationActivity;
 import android.view.View;
 
 import fr.unice.polytech.polyblem.bdd.Database;
+import fr.unice.polytech.polyblem.issueList.IssueGridFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,6 +36,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        /*FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        IssueGridFragment fragment = new IssueGridFragment();
+
+        fragmentTransaction.add(R.id.main_fragment, fragment);
+        fragmentTransaction.commit();*/
 
         Database db = new Database(getApplicationContext());
 

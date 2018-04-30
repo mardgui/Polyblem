@@ -13,7 +13,7 @@ public class Issue {
     private String pictureUrl;
     private String location;
     private String locationDetails;
-    private String urgency;
+    private Urgency urgency;
     private String email; //obli
     private String date;
 
@@ -25,7 +25,7 @@ public class Issue {
         this.pictureUrl = pictureUrl;
         this.location = location;
         this.locationDetails = locationDetails;
-        this.urgency = urgency;
+        this.urgency = Urgency.getFromName(urgency);
         this.email = email;
         this.date = date;
     }
@@ -37,7 +37,7 @@ public class Issue {
         this.pictureUrl = pictureUrl;
         this.location = location;
         this.locationDetails = locationDetails;
-        this.urgency = urgency;
+        this.urgency = Urgency.getFromName(urgency);
         this.email = email;
         this.date = date;
     }
@@ -70,7 +70,11 @@ public class Issue {
         return locationDetails;
     }
 
-    public String getUrgency() {
+    public String getUrgencyName() {
+        return urgency.getName();
+    }
+
+    public Urgency getUrgency() {
         return urgency;
     }
 
