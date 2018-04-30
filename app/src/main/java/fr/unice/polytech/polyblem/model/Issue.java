@@ -50,7 +50,7 @@ public class Issue {
         return category;
     }
 
-    public String getTitleIssue() {
+    public String getTitle() {
         return titleIssue;
     }
 

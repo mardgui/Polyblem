@@ -115,7 +115,7 @@ public class Database extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(ISSUE_TITLE, issue.getTitleIssue());
+        values.put(ISSUE_TITLE, issue.getTitle());
         values.put(ISSUE_CATEGORY, issue.getCategory());
         values.put(ISSUE_DESCRIPTION, issue.getDescription());
         values.put(ISSUE_PICTUREURL, issue.getPictureUrl());
@@ -129,7 +129,7 @@ public class Database extends SQLiteOpenHelper {
         db.close();
     }
 
-    public int addAPicture(Issue issue){
+    public int addPicture(Issue issue){
         SQLiteDatabase db = this.getReadableDatabase();
         ContentValues value = new ContentValues();
 
@@ -139,10 +139,9 @@ public class Database extends SQLiteOpenHelper {
                 ISSUE_ID +"=?", new String[]{String.valueOf(issue.getIdIssue())});
     }
 
-    public void deleteAIssue(Issue issue){
+    public void deleteIssue(Issue issue){
         SQLiteDatabase db = this.getReadableDatabase();
         db.delete(ISSUE_TABLE_NAME, ISSUE_ID +"=?", new String[]{String.valueOf(issue.getIdIssue())});
         db.close();
     }
-
 }
