@@ -30,15 +30,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(myIntent);
             }
         });
-
-        final Intent seeIncident = new Intent(MainActivity.this, IssueActivity.class);
-        seeIncident.putExtra("IdIncident", "1");
-        findViewById(R.id.incident).setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                startActivity(seeIncident);
-            }
-        });
-
         Database db = new Database(getApplicationContext());
 
     }
