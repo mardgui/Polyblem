@@ -41,7 +41,7 @@ public class Database extends SQLiteOpenHelper {
             ISSUE_EMAIL+" TEXT,"+
             ISSUE_DATE + " TEXT)";
 
-    private static final String ISSUE_INSERT= "INSERT INTO issue(titleissue, category, description, pictureurl, location, locationdetails, urgency, email, dateissue) " +
+    private static final String ISSUE_INSERT = "INSERT INTO issue(titleissue, category, description, pictureurl, location, locationdetails, urgency, email, dateissue) " +
             "VALUES ('Issue1', 'Casse', null, null, 'Bat O', '355', 'Faible', 'marion@etu.fr', '16/05/18');";
     private static final String ISSUE_INSERT2 =  " INSERT INTO issue(titleissue, category, description, pictureurl, location,locationdetails, urgency, email, dateissue)" +
             "VALUES ('Issue2', 'Propreté', null, null, 'Bat E', '235', 'Forte', 'florian@etu.fr', '10/05/18');";
@@ -96,6 +96,13 @@ public class Database extends SQLiteOpenHelper {
         String date= c.getString(9);
         return new Issue(idIssue,titleIssue,category,description,pictureUrl,location,locationDetails,urgency,
                 email, date);
+    }
+
+    public Issue getIssue(String id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM issue WHERE " + ISSUE_ID  + " = " + id, null);
+        c.moveToFirst();
+        return getIssue(c);
     }
 
     public List<Issue> getAllIssues(){

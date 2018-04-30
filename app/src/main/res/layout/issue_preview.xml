@@ -32,4 +32,5 @@
         android:gravity="center"
         android:text="JJ/MM/AA"
         android:textAlignment="center" />
+
 </RelativeLayout>
