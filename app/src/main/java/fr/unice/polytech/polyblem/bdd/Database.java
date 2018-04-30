@@ -12,7 +12,7 @@ import java.util.List;
 import fr.unice.polytech.polyblem.model.Issue;
 
 /**
- * Created by user on 16/04/2018.
+ * Created by Marion on 16/04/2018
  */
 
 public class Database extends SQLiteOpenHelper {

@@ -1,7 +1,7 @@
 package fr.unice.polytech.polyblem.model;
 
 /**
- * Created by user on 16/04/2018.
+ * Created by Marion on 16/04/2018
  */
 
 public class Issue {
