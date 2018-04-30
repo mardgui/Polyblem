@@ -35,7 +35,7 @@ public class IssueCustomAdapter extends ArrayAdapter<Issue> {
 
         urgency.setImageResource(issue.getUrgency().getId());
 
-        title.setText(issue.getTitleIssue());
+        title.setText(issue.getTitle());
         date.setText(issue.getDate());
 
         return convertView;
