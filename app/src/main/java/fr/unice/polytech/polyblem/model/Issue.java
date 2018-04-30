@@ -17,7 +17,7 @@ public class Issue {
     private String email; //obli
     private String date;
 
-    public Issue(int idIssue, String category, String titleIssue, String description, String pictureUrl, String location, String locationDetails, String urgency, String email, String date) {
+    public Issue(int idIssue, String titleIssue, String category,  String description, String pictureUrl, String location, String locationDetails, String urgency, String email, String date) {
         this.idIssue = idIssue;
         this.category = category;
         this.titleIssue = titleIssue;
@@ -30,7 +30,7 @@ public class Issue {
         this.date = date;
     }
 
-    public Issue(String category, String titleIssue, String description, String pictureUrl, String location, String locationDetails, String urgency, String email, String date) {
+    public Issue(String titleIssue, String category, String description, String pictureUrl, String location, String locationDetails, String urgency, String email, String date) {
         this.category = category;
         this.titleIssue = titleIssue;
         this.description = description;

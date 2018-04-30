@@ -17,6 +17,9 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import fr.unice.polytech.polyblem.bdd.Database;
+import fr.unice.polytech.polyblem.model.Issue;
+
 /**
  * Created by user on 17/04/2018.
  */
@@ -32,6 +35,8 @@ public class IssueActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.issue_container);
         Intent seeActivity = getIntent();
         idIssue = seeActivity.getStringExtra("IdIncident");
+        Database db = new Database(this.getApplicationContext());
+        Issue issue = db.getIssue(idIssue);
         Button addPicture = (Button) findViewById(R.id.addPicture);
         addPicture.setOnClickListener(this);
     }
