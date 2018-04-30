@@ -11,10 +11,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import fr.unice.polytech.polyblem.declaration.DeclarationActivity;
-import android.view.View;
-
 import fr.unice.polytech.polyblem.bdd.Database;
+import fr.unice.polytech.polyblem.declaration.DeclarationActivity;
 import fr.unice.polytech.polyblem.issueList.IssueGridFragment;
 
 public class MainActivity extends AppCompatActivity {
