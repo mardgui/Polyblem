@@ -8,7 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.List;
+
+import fr.unice.polytech.polyblem.bdd.Database;
 import fr.unice.polytech.polyblem.model.Issue;
+import fr.unice.polytech.polyblem.model.Photo;
 
 /**
  * Created by user on 01/05/2018.
@@ -28,6 +32,9 @@ public class IssueFragment extends Fragment {
 
         TextView categorie = getView().findViewById(R.id.categorie);
         categorie.setText(issue.getCategory());
+
+        Database database = new Database(getContext());
+        List<Photo> photoList = database.getPictures(issue);
 
         TextView description = getView().findViewById(R.id.description);
         description.setText(issue.getDescription());

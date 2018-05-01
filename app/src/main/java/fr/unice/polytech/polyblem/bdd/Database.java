@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.unice.polytech.polyblem.model.Issue;
+import fr.unice.polytech.polyblem.model.Photo;
 
 /**
  * Created by Marion on 16/04/2018
@@ -28,6 +29,7 @@ public class Database extends SQLiteOpenHelper {
     private static final String ISSUE_DATE = "dateIssue";
 
     private static final String ISSUE_TABLE_NAME = "issue";
+
     private static final String ISSUE_CREATE_TABLE =
             "CREATE TABLE "+ ISSUE_TABLE_NAME +" ( "+ ISSUE_ID +" INTEGER PRIMARY KEY AUTOINCREMENT,"+
             ISSUE_TITLE+" TEXT NOT NULL,"+
@@ -43,8 +45,18 @@ public class Database extends SQLiteOpenHelper {
             "VALUES ('Issue1', 'Casse', null,'Bat O', '355', 'Faible', 'marion@etu.fr', '16/05/18');";
     private static final String ISSUE_INSERT2 =  " INSERT INTO issue(titleissue, category, description, location,locationdetails, urgency, email, dateissue)" +
             "VALUES ('Issue2', 'Propreté', null,'Bat E', '235', 'Forte', 'florian@etu.fr', '10/05/18');";
-    private static final String ISSUE_INSERT3 = " INSERT INTO issue(titleissue, category, description, location,locationdetails, urgency, email, dateissue)" +
+    private static final String ISSUE_INSERT3 = "INSERT INTO issue(titleissue, category, description, location,locationdetails, urgency, email, dateissue)" +
             "VALUES ('Issue3', 'Autre', null, 'Bat W', '235', 'Moyen', 'quentin@etu.fr', '14/05/18');";
+
+
+    private static final String PHOTO_TABLE_NAME = "photos";
+    private static final String PHOTO_ID = "idPhoto";
+    private static final String PHOTO_URL = "url";
+
+    private static final String PHOTOS_CREATE_TABLE =
+            "CREATE TABLE "+ PHOTO_TABLE_NAME +" ( "+ PHOTO_ID +" INTEGER PRIMARY KEY AUTOINCREMENT,"+
+            ISSUE_ID +" INTEGER NOT NULL,"+
+            PHOTO_URL + " TEXT NOT NULL)";
 
 
     private static final String ISSUE_DROP_TABLE = "DROP TABLE IF EXISTS" + ISSUE_TABLE_NAME+";";
@@ -62,6 +74,7 @@ public class Database extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db){
         db.execSQL(ISSUE_CREATE_TABLE);
+        db.execSQL(PHOTOS_CREATE_TABLE);
         db.execSQL(ISSUE_INSERT);
         db.execSQL(ISSUE_INSERT2);
         db.execSQL(ISSUE_INSERT3);
@@ -115,7 +128,7 @@ public class Database extends SQLiteOpenHelper {
         return issues;
     }
 
-    public void addIssue(Issue issue){
+    public long addIssue(Issue issue){
         SQLiteDatabase db = this.getReadableDatabase();
         ContentValues values = new ContentValues();
 
@@ -128,19 +141,38 @@ public class Database extends SQLiteOpenHelper {
         values.put(ISSUE_EMAIL, issue.getEmail());
         values.put(ISSUE_DATE, issue.getDate());
 
-        db.insert(ISSUE_TABLE_NAME, null, values);
+        long id  = db.insert(ISSUE_TABLE_NAME, null, values);
         db.close();
+        return id;
     }
 
-    /*public int addPicture(Issue issue){
+    public List<Photo> getPictures(Issue issue){
         SQLiteDatabase db = this.getReadableDatabase();
-        ContentValues value = new ContentValues();
+        Cursor c = db.rawQuery("SELECT * FROM photos WHERE " + ISSUE_ID + "=" + issue.getIdIssue(), null);
+        c.moveToFirst();
+        List<Photo> photos = new ArrayList<>();
+        while(!c.isAfterLast()){
+            long idPhoto = c.getLong(0);
+            int idIssue = c.getInt(1);
+            String url= c.getString(2);
+            Photo photo = new Photo((int)idPhoto,idIssue, url);
+            photos.add(photo);
+            c.moveToNext();
+        }
+        c.close();
+        return photos;
+    }
 
-        value.put(ISSUE_PICTUREURL, issue.getPictureUrl());
+    public void addPicture(long id, String url){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ContentValues values = new ContentValues();
 
-        return db.update(ISSUE_TABLE_NAME,value,
-                ISSUE_ID +"=?", new String[]{String.valueOf(issue.getIdIssue())});
-    }*/
+        values.put(ISSUE_ID, id);
+        values.put(PHOTO_URL, url);
+
+        db.insert(PHOTO_TABLE_NAME, null ,values);
+        db.close();
+    }
 
     public void deleteIssue(Issue issue){
         SQLiteDatabase db = this.getReadableDatabase();

@@ -17,11 +17,14 @@ import android.widget.Spinner;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import fr.unice.polytech.polyblem.R;
 import fr.unice.polytech.polyblem.bdd.Database;
 import fr.unice.polytech.polyblem.model.Issue;
+import fr.unice.polytech.polyblem.model.Photo;
 
 /**
  * Created by Florian on 16/04/2018
@@ -31,6 +34,7 @@ public class DeclarationActivity extends Activity implements View.OnClickListene
 
     static final int REQUEST_TAKE_PHOTO = 1;
 
+    List<Photo> photoList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +48,12 @@ public class DeclarationActivity extends Activity implements View.OnClickListene
             @Override
             public void onClick(View view) {
                 Issue issue = createIssue();
-                new Database(getApplicationContext()).addIssue(issue);
+                Database database = new Database(getApplicationContext());
+                long id  = database.addIssue(issue);
                 Log.i("DeclarationActivity", issue.toString());
+                for(int i=0; i<photoList.size(); i++){
+                    database.addPicture(id,photoList.get(i).getUrl());
+                }
                 finish();
             }
         });
@@ -73,6 +81,7 @@ public class DeclarationActivity extends Activity implements View.OnClickListene
             }
 
             if (photoFile != null) {
+                photoList.add(new Photo(photoFile.getAbsolutePath()));
                 Uri photoURI = FileProvider.getUriForFile(this,
                         "com.example.android.fileprovider",
                         photoFile);
@@ -146,8 +155,8 @@ public class DeclarationActivity extends Activity implements View.OnClickListene
 
         issueUrgencyValue = Integer.toString(urgencyValue.getProgress());
 
-        return new Issue("Manque",
-                issueTitle,
+        return new Issue(issueTitle,
+                "Manque",
                 issueDescription,
                 issueLocation,
                 issueLocationDetail,
@@ -155,4 +164,6 @@ public class DeclarationActivity extends Activity implements View.OnClickListene
                 "email",
                 "date");
     }
+
+
 }
