@@ -21,7 +21,6 @@ public class Database extends SQLiteOpenHelper {
     private static final String ISSUE_TITLE = "titleIssue";
     private static final String ISSUE_CATEGORY = "category";
     private static final String ISSUE_DESCRIPTION = "description";
-    private static final String ISSUE_PICTUREURL = "pictureURL";
     private static final String ISSUE_LOCATION = "location";
     private static final String ISSUE_LOCATIONDETAILS = "locationDetails";
     private static final String ISSUE_URGENCY = "urgency";
@@ -34,19 +33,18 @@ public class Database extends SQLiteOpenHelper {
             ISSUE_TITLE+" TEXT NOT NULL,"+
             ISSUE_CATEGORY + " TEXT CHECK (category IN ('Manque','Casse','Dysfonctionnement', 'Propreté', 'Autre')), "+
             ISSUE_DESCRIPTION + " TEXT," +
-            ISSUE_PICTUREURL +" TEXT,"+
             ISSUE_LOCATION + " TEXT,"+
             ISSUE_LOCATIONDETAILS +" TEXT,"+
             ISSUE_URGENCY + " TEXT CHECK (urgency IN ('Faible','Moyen','Forte')),"+
             ISSUE_EMAIL+" TEXT,"+
             ISSUE_DATE + " TEXT)";
 
-    private static final String ISSUE_INSERT = "INSERT INTO issue(titleissue, category, description, pictureurl, location, locationdetails, urgency, email, dateissue) " +
-            "VALUES ('Issue1', 'Casse', null, null, 'Bat O', '355', 'Faible', 'marion@etu.fr', '16/05/18');";
-    private static final String ISSUE_INSERT2 =  " INSERT INTO issue(titleissue, category, description, pictureurl, location,locationdetails, urgency, email, dateissue)" +
-            "VALUES ('Issue2', 'Propreté', null, null, 'Bat E', '235', 'Forte', 'florian@etu.fr', '10/05/18');";
-    private static final String ISSUE_INSERT3 = " INSERT INTO issue(titleissue, category, description, pictureurl, location,locationdetails, urgency, email, dateissue)" +
-            "VALUES ('Issue3', 'Autre', null, null, 'Bat W', '235', 'Moyen', 'quentin@etu.fr', '14/05/18');";
+    private static final String ISSUE_INSERT = "INSERT INTO issue(titleissue, category, description, location, locationdetails, urgency, email, dateissue) " +
+            "VALUES ('Issue1', 'Casse', null,'Bat O', '355', 'Faible', 'marion@etu.fr', '16/05/18');";
+    private static final String ISSUE_INSERT2 =  " INSERT INTO issue(titleissue, category, description, location,locationdetails, urgency, email, dateissue)" +
+            "VALUES ('Issue2', 'Propreté', null,'Bat E', '235', 'Forte', 'florian@etu.fr', '10/05/18');";
+    private static final String ISSUE_INSERT3 = " INSERT INTO issue(titleissue, category, description, location,locationdetails, urgency, email, dateissue)" +
+            "VALUES ('Issue3', 'Autre', null, 'Bat W', '235', 'Moyen', 'quentin@etu.fr', '14/05/18');";
 
 
     private static final String ISSUE_DROP_TABLE = "DROP TABLE IF EXISTS" + ISSUE_TABLE_NAME+";";
@@ -88,13 +86,12 @@ public class Database extends SQLiteOpenHelper {
         String titleIssue = c.getString(1);
         String category= c.getString(2);
         String description= c.getString(3);
-        String pictureUrl= c.getString(4);
-        String location= c.getString(5);
-        String locationDetails= c.getString(6);
-        String urgency= c.getString(7);
-        String email= c.getString(8);
-        String date= c.getString(9);
-        return new Issue(idIssue,titleIssue,category,description,pictureUrl,location,locationDetails,urgency,
+        String location= c.getString(4);
+        String locationDetails= c.getString(5);
+        String urgency= c.getString(6);
+        String email= c.getString(7);
+        String date= c.getString(8);
+        return new Issue(idIssue,titleIssue,category,description,location,locationDetails,urgency,
                 email, date);
     }
 
@@ -125,7 +122,6 @@ public class Database extends SQLiteOpenHelper {
         values.put(ISSUE_TITLE, issue.getTitle());
         values.put(ISSUE_CATEGORY, issue.getCategory());
         values.put(ISSUE_DESCRIPTION, issue.getDescription());
-        values.put(ISSUE_PICTUREURL, issue.getPictureUrl());
         values.put(ISSUE_LOCATION, issue.getLocation());
         values.put(ISSUE_LOCATIONDETAILS, issue.getLocationDetails());
         values.put(ISSUE_URGENCY, issue.getUrgencyName());
@@ -136,7 +132,7 @@ public class Database extends SQLiteOpenHelper {
         db.close();
     }
 
-    public int addPicture(Issue issue){
+    /*public int addPicture(Issue issue){
         SQLiteDatabase db = this.getReadableDatabase();
         ContentValues value = new ContentValues();
 
@@ -144,7 +140,7 @@ public class Database extends SQLiteOpenHelper {
 
         return db.update(ISSUE_TABLE_NAME,value,
                 ISSUE_ID +"=?", new String[]{String.valueOf(issue.getIdIssue())});
-    }
+    }*/
 
     public void deleteIssue(Issue issue){
         SQLiteDatabase db = this.getReadableDatabase();

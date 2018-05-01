@@ -149,7 +149,6 @@ public class DeclarationActivity extends Activity implements View.OnClickListene
         return new Issue("Manque",
                 issueTitle,
                 issueDescription,
-                "",
                 issueLocation,
                 issueLocationDetail,
                 "Faible",
