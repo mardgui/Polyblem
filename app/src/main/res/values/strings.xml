@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">Polyblem</string>
     <string name="action_settings">Settings</string>
+    <string name="categorie">Catégorie</string>
+    <string name="label_loca">TextView</string>
+    <string name="label_email">TextView</string>
+    <string name="email">email@email.fr</string>
+    <string name="localisation1">D360</string>
+    <string name="description">vitre cassé</string>
+    <string name="titre">Titre</string>
 </resources>

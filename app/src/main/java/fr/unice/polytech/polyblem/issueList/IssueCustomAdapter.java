@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -16,6 +15,7 @@ import fr.unice.polytech.polyblem.R;
 import fr.unice.polytech.polyblem.model.Issue;
 
 public class IssueCustomAdapter extends ArrayAdapter<Issue> {
+
     public IssueCustomAdapter(Context context, List<Issue> issueList) {
         super(context, 0, issueList);
     }
@@ -31,9 +31,9 @@ public class IssueCustomAdapter extends ArrayAdapter<Issue> {
 
         TextView title = convertView.findViewById(R.id.title);
         TextView date = convertView.findViewById(R.id.date);
-        ImageView urgency = convertView.findViewById(R.id.urgency);
+        /*ImageView urgency = convertView.findViewById(R.id.urgency);
 
-        urgency.setImageResource(issue.getUrgency().getId());
+        urgency.setImageResource(issue.getUrgency().getId());*/
 
         title.setText(issue.getTitle());
         date.setText(issue.getDate());

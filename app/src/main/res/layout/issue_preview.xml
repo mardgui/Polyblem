@@ -11,7 +11,7 @@
         android:layout_toEndOf="@id/urgency"
         android:layout_alignParentTop="true"
         android:gravity="center"
-        android:text="Titre"
+        android:text="@string/titre"
         android:textAlignment="center"
         android:textStyle="bold" />
 
@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        app:srcCompat="@mipmap/ic_launcher_round" />
+        app:srcCompat="@mipmap/ic_launcher_round" android:contentDescription="TODO"/>
 
     <TextView
         android:id="@+id/date"
@@ -31,6 +31,8 @@
         android:layout_alignParentStart="true"
         android:gravity="center"
         android:text="JJ/MM/AA"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>

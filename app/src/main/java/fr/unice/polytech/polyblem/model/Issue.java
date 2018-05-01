@@ -1,10 +1,13 @@
 package fr.unice.polytech.polyblem.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Marion on 16/04/2018
  */
 
-public class Issue {
+public class Issue implements Parcelable {
 
     private int idIssue;
     private String titleIssue; //obli
@@ -100,5 +103,45 @@ public class Issue {
                 ", email='" + email + '\'' +
                 ", date='" + date + '\'' +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(idIssue);
+        dest.writeString(titleIssue);
+        dest.writeString(category);
+        dest.writeString(description);
+        dest.writeString(pictureUrl);
+        dest.writeString(location);
+        dest.writeString(locationDetails);
+        dest.writeString(email);
+        dest.writeString(date);
+    }
+
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        public Issue createFromParcel(Parcel in) {
+            return new Issue(in);
+        }
+
+        public Issue[] newArray(int size) {
+            return new Issue[size];
+        }
+    };
+
+    public Issue(Parcel in) {
+        this.idIssue = in.readInt();
+        this.category = in.readString();
+        this.titleIssue = in.readString();
+        this.description = in.readString();
+        this.pictureUrl = in.readString();
+        this.location = in.readString();
+        this.locationDetails = in.readString();
+        this.email = in.readString();
+        this.date = in.readString();
     }
 }

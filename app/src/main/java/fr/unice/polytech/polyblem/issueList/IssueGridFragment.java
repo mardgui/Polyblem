@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import fr.unice.polytech.polyblem.bdd.Database;
 import fr.unice.polytech.polyblem.model.Issue;
 
 public class IssueGridFragment extends Fragment {
+
     public IssueGridFragment() {
     }
 
@@ -36,6 +38,13 @@ public class IssueGridFragment extends Fragment {
         IssueCustomAdapter issueAdapter = new IssueCustomAdapter(this.getContext(), issueList);
         GridView gridView = (GridView) getActivity().findViewById(R.id.issue_grid);
         gridView.setAdapter(issueAdapter);
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
     }
 
     @Override
@@ -44,4 +53,6 @@ public class IssueGridFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.issue_container, container, false);
         return rootView;
     }
+
+
 }
