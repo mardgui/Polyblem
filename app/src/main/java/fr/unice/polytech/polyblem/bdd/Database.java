@@ -137,7 +137,7 @@ public class Database extends SQLiteOpenHelper {
         values.put(ISSUE_DESCRIPTION, issue.getDescription());
         values.put(ISSUE_LOCATION, issue.getLocation());
         values.put(ISSUE_LOCATIONDETAILS, issue.getLocationDetails());
-        values.put(ISSUE_URGENCY, issue.getUrgencyName());
+        values.put(ISSUE_URGENCY, issue.getUrgency().getName());
         values.put(ISSUE_EMAIL, issue.getEmail());
         values.put(ISSUE_DATE, issue.getDate());
 

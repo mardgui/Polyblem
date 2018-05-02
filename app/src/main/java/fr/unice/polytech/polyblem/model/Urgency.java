@@ -3,9 +3,9 @@ package fr.unice.polytech.polyblem.model;
 import fr.unice.polytech.polyblem.R;
 
 public enum Urgency {
-    HIGH(R.mipmap.higurg, "Forte"),
-    MEDIUM(R.mipmap.medurg, "Moyen"),
-    LOW(R.mipmap.lowurg, "Faible");
+    HIGH(R.drawable.higurg, "Forte"),
+    MEDIUM(R.drawable.medurg, "Moyen"),
+    LOW(R.drawable.lowurg, "Faible");
 
     private int id;
     private String name;

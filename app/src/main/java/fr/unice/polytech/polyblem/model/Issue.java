@@ -58,17 +58,12 @@ public class Issue implements Parcelable {
         return description;
     }
 
-
     public String getLocation() {
         return location;
     }
 
     public String getLocationDetails() {
         return locationDetails;
-    }
-
-    public String getUrgencyName() {
-        return urgency.getName();
     }
 
     public Urgency getUrgency() {
