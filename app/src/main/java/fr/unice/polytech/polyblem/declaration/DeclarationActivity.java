@@ -7,10 +7,13 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 
@@ -59,6 +62,7 @@ public class DeclarationActivity extends Activity implements View.OnClickListene
         });
     }
 
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -97,9 +101,38 @@ public class DeclarationActivity extends Activity implements View.OnClickListene
         Log.i("in activity","a");
         super.onActivityResult(requestCode, resultCode, data);
 
+        //Image created !
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             Log.i("ActivityResult", "hello");
+
+            setAdapater();
         }
+    }
+
+    private void setAdapater(){
+        final ImageGridAdapter imageGridAdapter = new ImageGridAdapter(getApplicationContext(), photoList);
+        final GridView gridView = findViewById(R.id.grid_picture);
+
+        int size=photoList.size();
+        // Calculated single Item Layout Width for each grid element ....
+        int width = 80;
+
+        DisplayMetrics dm = new DisplayMetrics();
+        this.getWindowManager().getDefaultDisplay().getMetrics(dm);
+        float density = dm.density;
+
+        int totalWidth = (int) (width * size * density);
+        int singleItemWidth = (int) (width * density);
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(totalWidth, LinearLayout.LayoutParams.MATCH_PARENT);
+
+        gridView.setLayoutParams(params);
+        gridView.setColumnWidth(singleItemWidth);
+        gridView.setHorizontalSpacing(50);
+        gridView.setStretchMode(GridView.STRETCH_SPACING);
+        gridView.setNumColumns(photoList.size());
+
+        gridView.setAdapter(imageGridAdapter);
     }
 
     String mCurrentPhotoPath;

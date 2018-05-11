@@ -1,4 +1,4 @@
-package fr.unice.polytech.polyblem;
+package fr.unice.polytech.polyblem.issue;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import java.util.List;
 
+import fr.unice.polytech.polyblem.R;
 import fr.unice.polytech.polyblem.model.Photo;
 
 public class ImageAdapter extends PagerAdapter {

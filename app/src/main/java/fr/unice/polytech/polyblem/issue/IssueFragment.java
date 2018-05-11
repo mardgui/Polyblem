@@ -1,4 +1,4 @@
-package fr.unice.polytech.polyblem;
+package fr.unice.polytech.polyblem.issue;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import fr.unice.polytech.polyblem.R;
 import fr.unice.polytech.polyblem.bdd.Database;
 import fr.unice.polytech.polyblem.model.Issue;
 import fr.unice.polytech.polyblem.model.Photo;
@@ -27,7 +28,7 @@ public class IssueFragment extends Fragment {
     }
 
     private ViewPager mPager;
-    private int currentPage = 0;
+    private  int currentPage = 0;
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         TextView title = getView().findViewById(R.id.title);

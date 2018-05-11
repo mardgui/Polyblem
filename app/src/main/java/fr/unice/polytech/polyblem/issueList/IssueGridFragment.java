@@ -14,9 +14,9 @@ import android.widget.GridView;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.unice.polytech.polyblem.IssueFragment;
 import fr.unice.polytech.polyblem.R;
 import fr.unice.polytech.polyblem.bdd.Database;
+import fr.unice.polytech.polyblem.issue.IssueFragment;
 import fr.unice.polytech.polyblem.model.Issue;
 
 public class IssueGridFragment extends Fragment {
