@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <include
+        android:id="@+id/header_issue"
+        layout="@layout/issue_preview"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
+
+    <RelativeLayout
+        android:layout_below="@id/header_issue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:id="@+id/categorie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:text="@string/categorie"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            tools:text="Catégorie" />
+
+
+        <RelativeLayout
+            android:id="@+id/picture"
+            android:layout_below="@id/categorie"
+            android:layout_width="fill_parent"
+            android:layout_height="190dp">
+            <android.support.v4.view.ViewPager
+                android:id="@+id/pager"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_alignParentTop="true" />
+            <me.relex.circleindicator.CircleIndicator
+                android:id="@+id/indicator"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_alignParentBottom="true"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/picture"
+            android:text="@string/description" />
+
+        <TextView
+            android:id="@+id/label_localisation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_loca"
+            android:layout_below="@id/description"
+            tools:text="Localisation :" />
+
+        <TextView
+            android:id="@+id/localisation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/label_localisation"
+            android:text="@string/localisation1" />
+
+        <TextView
+            android:id="@+id/label_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/localisation"
+            android:text="@string/label_email"
+            tools:text="Email :" />
+
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/label_email"
+            android:text="@string/email" />
+
+
+    </RelativeLayout>
+</RelativeLayout>
