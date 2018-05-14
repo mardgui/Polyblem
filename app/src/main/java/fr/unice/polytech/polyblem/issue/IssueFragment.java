@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,12 +41,8 @@ public class IssueFragment extends Fragment {
         ImageView urgency = getView().findViewById(R.id.urgency);
         urgency.setImageResource(issue.getUrgency().getId());
 
-
-
         Database database = new Database(getContext());
         List<Photo> photoList = database.getPictures(issue);
-
-        Log.i("IssueFra", photoList.size() + " nb photos");
 
         if (photoList.size() > 0) {
             getView().findViewById(R.id.noPicture).setVisibility(View.GONE);
@@ -60,6 +55,35 @@ public class IssueFragment extends Fragment {
 
         super.onActivityCreated(savedInstanceState);
 
+        setListners();
+
+    }
+
+    private void setText(String string, TextView textView){
+        if(string != null){
+            textView.setText(string);
+        }
+        else
+            textView.setText("Non indiqué");
+    }
+
+    private void initSlides(final List<Photo> photos) {
+        ViewPager mPager = getView().findViewById(R.id.pager);
+        mPager.setAdapter(new ImageAdapter(getContext(),photos));
+        CircleIndicator indicator = getView().findViewById(R.id.indicator);
+        indicator.setViewPager(mPager);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            issue = bundle.getParcelable("Issue");
+        }
+        return inflater.inflate(R.layout.issue, container, false);
+    }
+
+    private void setListners(){
         Button sendEmail = getView().findViewById(R.id.send_email);
         sendEmail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,29 +110,5 @@ public class IssueFragment extends Fragment {
                 getContext().startActivity(Intent.createChooser(agendaIntent, "Ajouter à l'agenda..."));
             }
         });
-    }
-
-    private void setText(String string, TextView textView){
-        if(string != null){
-            textView.setText(string);
-        }
-        else
-            textView.setText("Non indiqué");
-    }
-
-    private void initSlides(final List<Photo> photos) {
-        ViewPager mPager = getView().findViewById(R.id.pager);
-        mPager.setAdapter(new ImageAdapter(getContext(),photos));
-        CircleIndicator indicator = getView().findViewById(R.id.indicator);
-        indicator.setViewPager(mPager);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            issue = bundle.getParcelable("Issue");
-        }
-        return inflater.inflate(R.layout.issue, container, false);
     }
 }

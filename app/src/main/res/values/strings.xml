@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Polyblem</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_help">Aide</string>
+    <string name="action_logout">Déconnecter</string>
     <string name="categorie">Catégorie</string>
     <string name="label_loca">Localisation : </string>
     <string name="label_email">Email : </string>
@@ -13,4 +14,5 @@
     <string name="ajouter_l_agenda">Ajouter à l\'agenda</string>
     <string name="envoyer_un_email">Envoyer un email</string>
     <string name="label_description">Description :</string>
+    <string name="aide">Aide</string>
 </resources>

@@ -12,11 +12,13 @@ import android.view.View;
 
 import fr.unice.polytech.polyblem.bdd.Database;
 import fr.unice.polytech.polyblem.declaration.DeclarationActivity;
+import fr.unice.polytech.polyblem.help.HelpFragment;
 import fr.unice.polytech.polyblem.issueList.IssueGridFragment;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String BACK_STACK_ROOT_TAG = "root_fragment";
+    private static final String BACK_STACK_HELP_TAG = "help_fragment";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +65,16 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_help) {
+            fragmentManager.popBackStack(BACK_STACK_HELP_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, new HelpFragment())
+                    .addToBackStack(BACK_STACK_HELP_TAG)
+                    .commit();
             return true;
         }
 

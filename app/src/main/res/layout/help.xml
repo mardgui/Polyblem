@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp">
+
+    <TextView
+        android:id="@+id/title_help"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/aide"
+        tools:text="Aide"
+        android:layout_marginTop="20dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_below="@id/title_help"
+        android:id="@+id/delete_explanation"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp">
+
+        <Button
+            android:id="@+id/delete_issue_help"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ic_delete"
+            android:layout_marginRight="10dp"/>
+
+        <TextView
+            android:id="@+id/delete_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_below="@id/delete_explanation"
+        android:id="@+id/calendar_explanation"
+        android:layout_marginBottom="20dp">
+
+        <Button
+            android:id="@+id/add_to_agenda_help"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ic_calendar"
+            android:layout_marginRight="10dp"/>
+        <TextView
+            android:id="@+id/agenda_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_below="@id/calendar_explanation"
+        android:id="@+id/email_explanation"
+        android:layout_marginBottom="20dp">
+
+        <Button
+            android:id="@+id/send_email_help"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ic_email"
+            android:layout_marginRight="10dp"/>
+
+        <TextView
+            android:id="@+id/email_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>
