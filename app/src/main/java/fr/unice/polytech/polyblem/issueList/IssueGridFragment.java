@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.SearchView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,14 @@ public class IssueGridFragment extends Fragment {
         issueCustomAdapter = new IssueCustomAdapter(this.getContext(), issueList);
         GridView gridView = (GridView) getActivity().findViewById(R.id.issue_grid);
         gridView.setAdapter(issueCustomAdapter);
+
+        final SearchView searchView = (SearchView) getActivity().findViewById(R.id.search);
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchView.setIconified(false);
+            }
+        });
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
