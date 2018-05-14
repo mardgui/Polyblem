@@ -31,7 +31,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -53,13 +52,12 @@ public class DeclarationActivity extends Activity implements View.OnClickListene
 
     private List<Photo> photoList = new ArrayList<>();
     private String mCurrentPhotoPath;
-    private Spinner locationSpinner;
-    private Spinner categorySpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_declaration);
+
         Button addPicture = findViewById(R.id.join_image);
         addPicture.setOnClickListener(this);
 
@@ -112,11 +110,11 @@ public class DeclarationActivity extends Activity implements View.OnClickListene
 
         //Image created !
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-            setAdapater();
+            setAdapter();
         }
     }
 
-    private void setAdapater() {
+    private void setAdapter() {
         HorizontalScrollView horizontalScrollView = findViewById(R.id.title_horizontalScrollView);
         if (horizontalScrollView.getVisibility() == View.INVISIBLE) {
             findViewById(R.id.title_horizontalScrollView).setVisibility(View.VISIBLE);
@@ -149,7 +147,7 @@ public class DeclarationActivity extends Activity implements View.OnClickListene
     }
 
     private File createImageFile() throws IOException {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.FRENCH).format(Calendar.getInstance().getTime());
         String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
@@ -165,18 +163,18 @@ public class DeclarationActivity extends Activity implements View.OnClickListene
     private Issue createIssue() {
         EditText title = findViewById(R.id.title);
         EditText description = findViewById(R.id.description);
-        Spinner category = findViewById(R.id.category);
-        Spinner location = findViewById(R.id.location);
+        Spinner categorySpinner = findViewById(R.id.category);
+        Spinner locationSpinner = findViewById(R.id.location);
         EditText locationDetail = findViewById(R.id.locationDetail);
         SeekBar urgencyValue = findViewById(R.id.urgencyValue);
         EditText email = findViewById(R.id.email);
 
-        String issueTitle = title.getText() != null ? title.getText().toString() : "";
-        String issueDescription = description.getText() != null ? description.getText().toString() : "";
-        String issueCategory = categorySpinner.getSelectedItem().equals("Catégorie") ? null : category.getSelectedItem().toString();
-        String issueLocation = locationSpinner.getSelectedItem().equals("Lieu") ? null : location.getSelectedItem().toString();
-        String issueLocationDetail = locationDetail.getText() != null ? locationDetail.getText().toString() : "";
-        String issueEmail = email.getText() != null ? email.getText().toString() : "";
+        String issueTitle = title.getText() != null ? title.getText().toString() : null;
+        String issueDescription = description.getText() != null ? description.getText().toString() : null;
+        String issueCategory = categorySpinner.getSelectedItem().equals("Catégorie") ? null : categorySpinner.getSelectedItem().toString();
+        String issueLocation = locationSpinner.getSelectedItem().equals("Lieu") ? null : locationSpinner.getSelectedItem().toString();
+        String issueLocationDetail = locationDetail.getText() != null ? locationDetail.getText().toString() : null;
+        String issueEmail = email.getText() != null ? email.getText().toString() : null;
         String issueUrgencyValue = Urgency.getFromId(urgencyValue.getProgress());
         String date = new SimpleDateFormat("dd/MM/yy", Locale.FRENCH).format(Calendar.getInstance().getTime());
 
@@ -213,7 +211,7 @@ public class DeclarationActivity extends Activity implements View.OnClickListene
             categories.add(category.getName());
         }
 
-        categorySpinner = findViewById(R.id.category);
+        Spinner categorySpinner = findViewById(R.id.category);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(DeclarationActivity.this, android.R.layout.simple_spinner_item, categories) {
             @Override
             public boolean isEnabled(int position) {
@@ -252,7 +250,7 @@ public class DeclarationActivity extends Activity implements View.OnClickListene
             locations.add(location.getName());
         }
 
-        locationSpinner = findViewById(R.id.location);
+        Spinner locationSpinner = findViewById(R.id.location);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(DeclarationActivity.this, android.R.layout.simple_spinner_item, locations) {
             @Override
             public boolean isEnabled(int position) {

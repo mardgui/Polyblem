@@ -24,7 +24,9 @@ import me.relex.circleindicator.CircleIndicator;
 
 public class IssueFragment extends Fragment {
 
-    Issue issue;
+    private Issue issue;
+    private ViewPager mPager;
+    private int currentPage = 0;
 
     public IssueFragment() {
     }
@@ -47,12 +49,10 @@ public class IssueFragment extends Fragment {
 
         Log.i("IssueFra", photoList.size() + " nb photos");
 
-        if(photoList.size() > 0) {
+        if (photoList.size() > 0) {
             getView().findViewById(R.id.noPicture).setVisibility(View.GONE);
             initSlides(photoList);
-        }
-        else
-        {
+        } else {
             getView().findViewById(R.id.picture).setVisibility(View.GONE);
             ImageView noPicture = getView().findViewById(R.id.noPicture);
             noPicture.setImageResource(R.drawable.nopicture);
@@ -102,7 +102,6 @@ public class IssueFragment extends Fragment {
         CircleIndicator indicator = getView().findViewById(R.id.indicator);
         indicator.setViewPager(mPager);
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
