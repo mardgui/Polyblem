@@ -2,11 +2,15 @@
     <string name="app_name">Polyblem</string>
     <string name="action_settings">Settings</string>
     <string name="categorie">Catégorie</string>
-    <string name="label_loca">TextView</string>
-    <string name="label_email">TextView</string>
+    <string name="label_loca">Localisation : </string>
+    <string name="label_email">Email : </string>
     <string name="email">email@email.fr</string>
     <string name="localisation1">D360</string>
     <string name="description">vitre cassé</string>
     <string name="titre">Titre</string>
-    <string name="image">TODO</string>
+    <string name="image">image</string>
+    <string name="label_cat">Catégorie : </string>
+    <string name="ajouter_l_agenda">Ajouter à l\'agenda</string>
+    <string name="envoyer_un_email">Envoyer un email</string>
+    <string name="label_description">Description :</string>
 </resources>

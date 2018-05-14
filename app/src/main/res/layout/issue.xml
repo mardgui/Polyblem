@@ -19,114 +19,146 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true">
 
-        <TextView
-            android:id="@+id/categorie"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:text="@string/categorie"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            tools:text="Catégorie" />
-
         <ImageView
             android:id="@+id/noPicture"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:layout_below="@id/categorie" />
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"/>
 
 
         <RelativeLayout
             android:id="@+id/picture"
-            android:layout_below="@id/noPicture"
             android:layout_width="fill_parent"
-            android:layout_height="190dp">
+            android:layout_height="190dp"
+            android:layout_below="@id/noPicture"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
             <android.support.v4.view.ViewPager
                 android:id="@+id/pager"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_alignParentTop="true" />
+
             <me.relex.circleindicator.CircleIndicator
                 android:id="@+id/indicator"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_alignParentBottom="true"/>
+                android:layout_alignParentBottom="true" />
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/picture"
-            android:text="@string/description" />
-
-        <TextView
-            android:id="@+id/label_localisation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/label_loca"
-            android:layout_below="@id/description"
-            tools:text="Localisation :" />
-
-        <TextView
-            android:id="@+id/localisation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/label_localisation"
-            android:text="@string/localisation1" />
-
-        <TextView
-            android:id="@+id/label_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/localisation"
-            android:text="@string/label_email"
-            tools:text="Email :" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/label_email"
+            android:orientation="horizontal"
+            android:layout_below="@id/picture"
+            android:id="@+id/description_all">
+
+            <TextView
+                android:id="@+id/label_description"
+                android:layout_width="170dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/label_description"
+                tools:text="Description :" />
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/description" />
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/description_all"
+            android:id="@+id/category_all">
+
+            <TextView
+                android:id="@+id/label_category"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/label_cat"
+                tools:text="Catégorie :" />
+
+            <TextView
+                android:id="@+id/categorie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/categorie"
+                tools:text="Catégorie" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/category_all"
+            android:id="@+id/localisation_all">
+            <TextView
+                android:id="@+id/label_localisation"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:text="@string/label_loca"
+                android:layout_weight="1"
+                tools:text="Localisation :" />
+
+            <TextView
+                android:id="@+id/localisation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/localisation1"
+                android:layout_weight="1"
+                tools:text="Parking A" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/localisation_all"
             android:orientation="horizontal"
             android:id="@+id/send_email_layout">
 
             <TextView
-                android:id="@+id/email"
-                android:layout_width="match_parent"
+                android:id="@+id/label_email"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:text="@string/label_email"
+                tools:text="Email :" />
+
+            <TextView
+                android:id="@+id/email"
+                android:layout_height="wrap_content"
+                android:layout_width="150dp"
                 android:text="@string/email" />
 
             <Button
                 android:id="@+id/send_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Send email" />
+                android:text="@string/envoyer_un_email" />
         </LinearLayout>
 
-        <LinearLayout
+
+        <Button
+            android:id="@+id/add_to_agenda"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/send_email_layout"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/agenda"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Je ne sais pas quoi mettre ici" />
-
-            <Button
-                android:id="@+id/add_to_agenda"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Add to agenda" />
-        </LinearLayout>
-
+            android:text="@string/ajouter_l_agenda"
+            android:layout_below="@id/send_email_layout" />
 
     </RelativeLayout>
 </RelativeLayout>

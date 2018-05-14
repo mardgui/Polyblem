@@ -31,15 +31,16 @@ public class IssueFragment extends Fragment {
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        TextView title = getView().findViewById(R.id.title);
-        title.setText(issue.getTitle());
-
-        TextView categorie = getView().findViewById(R.id.categorie);
-        categorie.setText(issue.getCategory());
+        setText(issue.getTitle(), (TextView) getView().findViewById(R.id.title));
+        setText(issue.getCategory(), (TextView) getView().findViewById(R.id.categorie));
+        setText(issue.getDescription(), (TextView) getView().findViewById(R.id.description));
+        setText(issue.getLocation(), (TextView) getView().findViewById(R.id.localisation));
+        setText(issue.getEmail(), (TextView) getView().findViewById(R.id.email));
 
         ImageView urgency = getView().findViewById(R.id.urgency);
-
         urgency.setImageResource(issue.getUrgency().getId());
+
+
 
         Database database = new Database(getContext());
         List<Photo> photoList = database.getPictures(issue);
@@ -56,21 +57,6 @@ public class IssueFragment extends Fragment {
             ImageView noPicture = getView().findViewById(R.id.noPicture);
             noPicture.setImageResource(R.drawable.nopicture);
         }
-
-        TextView description = getView().findViewById(R.id.description);
-        description.setText(issue.getDescription());
-
-        TextView localisation1 = getView().findViewById(R.id.label_localisation);
-        localisation1.setText("Localisation : ");
-
-        TextView localisation = getView().findViewById(R.id.localisation);
-        localisation.setText(issue.getLocation());
-
-        TextView email1 = getView().findViewById(R.id.label_email);
-        email1.setText("Email : ");
-
-        TextView email = getView().findViewById(R.id.email);
-        email.setText(issue.getEmail());
 
         super.onActivityCreated(savedInstanceState);
 
@@ -100,6 +86,14 @@ public class IssueFragment extends Fragment {
                 getContext().startActivity(Intent.createChooser(agendaIntent, "Ajouter à l'agenda..."));
             }
         });
+    }
+
+    private void setText(String string, TextView textView){
+        if(string != null){
+            textView.setText(string);
+        }
+        else
+            textView.setText("Non indiqué");
     }
 
     private void initSlides(final List<Photo> photos) {
