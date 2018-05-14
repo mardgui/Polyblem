@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F9F9FA"
     tools:context=".declaration.DeclarationActivity">
 
     <Spinner
@@ -11,8 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown"/>
+        android:layout_margin="10dp"
+        android:spinnerMode="dropdown" />
 
     <EditText
         android:id="@+id/title"
@@ -28,8 +29,8 @@
         android:id="@+id/description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/title"
         android:ems="10"
         android:hint="Description"
@@ -41,40 +42,41 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/description"
         android:text="Ajouter image" />
-    
+
     <ImageView
         android:id="@+id/noImageAdded"
-        android:layout_below="@id/join_image"
-        android:layout_width="match_parent"
-        android:layout_height="90dp" />
-
-    <HorizontalScrollView
-        android:layout_below="@id/join_image"
         android:layout_width="match_parent"
         android:layout_height="90dp"
-        android:scrollbars="none"
+        android:layout_below="@id/join_image" />
+
+    <HorizontalScrollView
         android:id="@+id/title_horizontalScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_below="@id/join_image"
         android:layout_margin="1dp"
-        android:fillViewport="false">
+        android:fillViewport="false"
+        android:scrollbars="none">
+
         <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent">
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
             <GridView
                 android:id="@+id/grid_picture"
-                android:layout_width="fill_parent"
-                android:scrollbars="none"
-                android:layout_height="match_parent">
-            </GridView>
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none" />
         </LinearLayout>
     </HorizontalScrollView>
 
     <Spinner
         android:id="@+id/location"
-        android:layout_below="@+id/noImageAdded"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:drawable/btn_dropdown"
+        android:layout_below="@+id/noImageAdded"
+        android:layout_margin="10dp"
         android:spinnerMode="dropdown" />
 
     <EditText
@@ -102,8 +104,8 @@
         android:layout_alignTop="@+id/urgency"
         android:layout_toEndOf="@+id/urgency"
         android:max="2"
-        android:paddingStart="16dp"
         android:paddingEnd="16dp"
+        android:paddingStart="16dp"
         android:progress="1" />
 
     <EditText
