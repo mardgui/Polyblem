@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +33,7 @@ public class ImageGridAdapter extends ArrayAdapter<Photo> {
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, @Nullable View convertView, @NonNull final ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.image_preview, null);
@@ -50,9 +49,9 @@ public class ImageGridAdapter extends ArrayAdapter<Photo> {
             @Override
             public void onClick(View view) {
                 photoList.remove(photo);
+                notifyDataSetChanged();
                 File file = new File(photo.getUrl());
                 boolean okdelete = file.delete();
-                Log.i("Adapater delete", okdelete + "?");
             }
         });
 
