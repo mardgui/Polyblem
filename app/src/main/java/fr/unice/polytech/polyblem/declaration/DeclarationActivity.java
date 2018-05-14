@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
@@ -47,6 +49,10 @@ public class DeclarationActivity extends Activity implements View.OnClickListene
         Button send = findViewById(R.id.send);
         Button addPicture = findViewById(R.id.join_image);
         addPicture.setOnClickListener(this);
+
+        findViewById(R.id.title_horizontalScrollView).setVisibility(View.INVISIBLE);
+        ImageView noImage = findViewById(R.id.noImageAdded);
+        noImage.setImageResource(R.drawable.noimage);
 
         send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,18 +103,21 @@ public class DeclarationActivity extends Activity implements View.OnClickListene
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        Log.i("in activity", "a");
         super.onActivityResult(requestCode, resultCode, data);
 
         //Image created !
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-            Log.i("ActivityResult", "hello");
-
             setAdapater();
         }
     }
 
     private void setAdapater() {
+        HorizontalScrollView horizontalScrollView = findViewById(R.id.title_horizontalScrollView);
+        if( horizontalScrollView.getVisibility() == View.INVISIBLE) {
+            findViewById(R.id.title_horizontalScrollView).setVisibility(View.VISIBLE);
+            findViewById(R.id.noImageAdded).setVisibility(View.INVISIBLE);
+        }
+
         final ImageGridAdapter imageGridAdapter = new ImageGridAdapter(getApplicationContext(), photoList);
         final GridView gridView = findViewById(R.id.grid_picture);
 

@@ -30,10 +30,16 @@
             android:paddingTop="10dp"
             tools:text="Catégorie" />
 
+        <ImageView
+            android:id="@+id/noPicture"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_below="@id/categorie" />
+
 
         <RelativeLayout
             android:id="@+id/picture"
-            android:layout_below="@id/categorie"
+            android:layout_below="@id/noPicture"
             android:layout_width="fill_parent"
             android:layout_height="190dp">
             <android.support.v4.view.ViewPager

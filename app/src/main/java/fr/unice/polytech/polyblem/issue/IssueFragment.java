@@ -2,7 +2,6 @@ package fr.unice.polytech.polyblem.issue;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -50,7 +49,16 @@ public class IssueFragment extends Fragment {
 
         Log.i("IssueFra", photoList.size() + " nb photos");
 
-        initSlides(photoList);
+        if(photoList.size() > 0) {
+            getView().findViewById(R.id.noPicture).setVisibility(View.GONE);
+            initSlides(photoList);
+        }
+        else
+        {
+            getView().findViewById(R.id.picture).setVisibility(View.GONE);
+            ImageView noPicture = getView().findViewById(R.id.noPicture);
+            noPicture.setImageResource(R.drawable.nopicture);
+        }
 
         TextView description = getView().findViewById(R.id.description);
         description.setText(issue.getDescription());
