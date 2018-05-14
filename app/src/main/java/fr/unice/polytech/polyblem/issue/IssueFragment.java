@@ -1,6 +1,8 @@
 package fr.unice.polytech.polyblem.issue;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -8,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -65,6 +68,20 @@ public class IssueFragment extends Fragment {
         email.setText(issue.getEmail());
 
         super.onActivityCreated(savedInstanceState);
+
+        Button sendEmail = getView().findViewById(R.id.send_email);
+        sendEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+                emailIntent.setType("plain/text");
+                emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{issue.getEmail()});
+                emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Incident : " + issue.getTitle() + " - " + issue.getDate());
+                emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "J'aimerais plus détails concernant cet incident : \n");
+
+                getContext().startActivity(Intent.createChooser(emailIntent, "Envoyer un email..."));
+            }
+        });
 
     }
 

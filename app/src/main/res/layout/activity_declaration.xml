@@ -35,7 +35,7 @@
         android:inputType="textMultiLine" />
 
     <Button
-        android:id="@+id/joinImage"
+        android:id="@+id/join_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/description"
@@ -43,7 +43,7 @@
         android:text="Ajouter image" />
 
     <HorizontalScrollView
-        android:layout_below="@id/joinImage"
+        android:layout_below="@id/join_image"
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:scrollbars="none"

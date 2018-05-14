@@ -33,18 +33,19 @@ import fr.unice.polytech.polyblem.model.Photo;
  * Created by Florian on 16/04/2018
  */
 
-public class DeclarationActivity extends Activity implements View.OnClickListener  {
+public class DeclarationActivity extends Activity implements View.OnClickListener {
 
     static final int REQUEST_TAKE_PHOTO = 1;
 
     List<Photo> photoList = new ArrayList<>();
+    String mCurrentPhotoPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_declaration);
         Button send = findViewById(R.id.send);
-        Button addPicture = findViewById(R.id.joinImage);
+        Button addPicture = findViewById(R.id.join_image);
         addPicture.setOnClickListener(this);
 
         send.setOnClickListener(new View.OnClickListener() {
@@ -52,26 +53,24 @@ public class DeclarationActivity extends Activity implements View.OnClickListene
             public void onClick(View view) {
                 Issue issue = createIssue();
                 Database database = new Database(getApplicationContext());
-                long id  = database.addIssue(issue);
+                long id = database.addIssue(issue);
                 Log.i("DeclarationActivity", issue.toString());
-                for(int i=0; i<photoList.size(); i++){
-                    database.addPicture(id,photoList.get(i).getUrl());
+                for (int i = 0; i < photoList.size(); i++) {
+                    database.addPicture(id, photoList.get(i).getUrl());
                 }
                 finish();
             }
         });
     }
 
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.joinImage:
+            case R.id.join_image:
                 dispatchTakePictureIntent();
                 break;
         }
     }
-
 
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -98,7 +97,7 @@ public class DeclarationActivity extends Activity implements View.OnClickListene
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        Log.i("in activity","a");
+        Log.i("in activity", "a");
         super.onActivityResult(requestCode, resultCode, data);
 
         //Image created !
@@ -109,11 +108,11 @@ public class DeclarationActivity extends Activity implements View.OnClickListene
         }
     }
 
-    private void setAdapater(){
+    private void setAdapater() {
         final ImageGridAdapter imageGridAdapter = new ImageGridAdapter(getApplicationContext(), photoList);
         final GridView gridView = findViewById(R.id.grid_picture);
 
-        int size=photoList.size();
+        int size = photoList.size();
         // Calculated single Item Layout Width for each grid element ....
         int width = 80;
 
@@ -134,8 +133,6 @@ public class DeclarationActivity extends Activity implements View.OnClickListene
 
         gridView.setAdapter(imageGridAdapter);
     }
-
-    String mCurrentPhotoPath;
 
     private File createImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
