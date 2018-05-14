@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +27,7 @@ public class IssueGridFragment extends Fragment {
         return new IssueGridFragment();
     }
 
+    private static final String BACK_STACK_ISSUE_TAG = "issue_fragment";
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -53,9 +53,10 @@ public class IssueGridFragment extends Fragment {
                 issueFragment.setArguments(bundle);
 
                 FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.add(R.id.container, issueFragment);
-                fragmentTransaction.commit();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, issueFragment)
+                        .addToBackStack(BACK_STACK_ISSUE_TAG)
+                        .commit();
             }
         });
     }

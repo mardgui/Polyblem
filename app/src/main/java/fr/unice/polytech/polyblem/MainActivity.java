@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -16,6 +15,8 @@ import fr.unice.polytech.polyblem.declaration.DeclarationActivity;
 import fr.unice.polytech.polyblem.issueList.IssueGridFragment;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String BACK_STACK_ROOT_TAG = "root_fragment";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +37,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentManager.popBackStack(BACK_STACK_ROOT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
-        fragmentTransaction.add(R.id.container, new IssueGridFragment());
-        fragmentTransaction.commit();
+        fragmentManager.beginTransaction()
+               .replace(R.id.container, new IssueGridFragment())
+               .addToBackStack(BACK_STACK_ROOT_TAG)
+               .commit();
 
         Database db = new Database(getApplicationContext());
 

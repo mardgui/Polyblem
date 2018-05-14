@@ -29,6 +29,7 @@ public class IssueFragment extends Fragment {
 
     private ViewPager mPager;
     private  int currentPage = 0;
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         TextView title = getView().findViewById(R.id.title);
@@ -68,7 +69,6 @@ public class IssueFragment extends Fragment {
     }
 
     private void initSlides(final List<Photo> photos) {
-
         mPager = getView().findViewById(R.id.pager);
         mPager.setAdapter(new ImageAdapter(getContext(),photos));
         CircleIndicator indicator = getView().findViewById(R.id.indicator);
@@ -79,14 +79,15 @@ public class IssueFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        if (container != null) {
-            container.removeAllViews();
-        }
-
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             issue = bundle.getParcelable("Issue");
         }
         return inflater.inflate(R.layout.issue, container, false);
+    }
+
+
+    public void onBackPressed() {
+
     }
 }
