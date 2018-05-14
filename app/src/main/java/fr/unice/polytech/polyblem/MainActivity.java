@@ -23,9 +23,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setImageResource(R.drawable.ic_add_black_24dp);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -41,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
 
         fragmentManager.beginTransaction()
                .replace(R.id.container, new IssueGridFragment())
-               .addToBackStack(BACK_STACK_ROOT_TAG)
                .commit();
 
         Database db = new Database(getApplicationContext());

@@ -75,6 +75,8 @@ public class DeclarationActivity extends Activity implements View.OnClickListene
             case R.id.join_image:
                 dispatchTakePictureIntent();
                 break;
+            default:
+                break;
         }
     }
 
