@@ -29,9 +29,6 @@ public class IssueFragment extends Fragment {
     public IssueFragment() {
     }
 
-    private ViewPager mPager;
-    private  int currentPage = 0;
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         TextView title = getView().findViewById(R.id.title);
@@ -91,14 +88,25 @@ public class IssueFragment extends Fragment {
             }
         });
 
+        Button addToAgenda = getView().findViewById(R.id.add_to_agenda);
+        addToAgenda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Intent agendaIntent = new Intent(Intent.ACTION_EDIT);
+                agendaIntent.setType("vnd.android.cursor.item/event");
+                agendaIntent.putExtra("title", "Incident : " + issue.getTitle());
+                agendaIntent.putExtra("description", "S'occuper de l'incident " + issue.getTitle() + " déclaré le " + issue.getDate() + " :\n" + issue.getDescription());
+
+                getContext().startActivity(Intent.createChooser(agendaIntent, "Ajouter à l'agenda..."));
+            }
+        });
     }
 
     private void initSlides(final List<Photo> photos) {
-        mPager = getView().findViewById(R.id.pager);
+        ViewPager mPager = getView().findViewById(R.id.pager);
         mPager.setAdapter(new ImageAdapter(getContext(),photos));
         CircleIndicator indicator = getView().findViewById(R.id.indicator);
         indicator.setViewPager(mPager);
-
     }
 
 
@@ -109,10 +117,5 @@ public class IssueFragment extends Fragment {
             issue = bundle.getParcelable("Issue");
         }
         return inflater.inflate(R.layout.issue, container, false);
-    }
-
-
-    public void onBackPressed() {
-
     }
 }

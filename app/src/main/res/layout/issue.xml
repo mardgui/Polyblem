@@ -34,8 +34,7 @@
             android:id="@+id/noPicture"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:layout_below="@id/categorie"
-            android:visibility="gone" />
+            android:layout_below="@id/categorie" />
 
 
         <RelativeLayout
@@ -89,7 +88,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/label_email"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:id="@+id/send_email_layout">
 
             <TextView
                 android:id="@+id/email"
@@ -104,6 +104,27 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Send email" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/send_email_layout"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/agenda"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Je ne sais pas quoi mettre ici" />
+
+            <Button
+                android:id="@+id/add_to_agenda"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Add to agenda" />
         </LinearLayout>
 
 
