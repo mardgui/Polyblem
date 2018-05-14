@@ -81,7 +81,7 @@
         android:id="@+id/locationDetail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/noImageAdded"
+        android:layout_below="@+id/location"
         android:ems="10"
         android:hint="Détail"
         android:inputType="textPersonName" />
