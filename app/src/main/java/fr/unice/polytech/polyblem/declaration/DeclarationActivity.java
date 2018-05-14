@@ -41,6 +41,7 @@ import fr.unice.polytech.polyblem.model.Category;
 import fr.unice.polytech.polyblem.model.Issue;
 import fr.unice.polytech.polyblem.model.Location;
 import fr.unice.polytech.polyblem.model.Photo;
+import fr.unice.polytech.polyblem.model.Urgency;
 
 /**
  * Created by Florian on 16/04/2018
@@ -52,6 +53,8 @@ public class DeclarationActivity extends Activity implements View.OnClickListene
 
     private List<Photo> photoList = new ArrayList<>();
     private String mCurrentPhotoPath;
+    private Spinner locationSpinner;
+    private Spinner categorySpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,45 +167,24 @@ public class DeclarationActivity extends Activity implements View.OnClickListene
         Spinner location = findViewById(R.id.location);
         EditText locationDetail = findViewById(R.id.locationDetail);
         SeekBar urgencyValue = findViewById(R.id.urgencyValue);
+        EditText email = findViewById(R.id.email);
 
-        String issueTitle = "";
-        String issueDescription = "";
-        String issueCategory = "";
-        String issueLocation = "";
-        String issueLocationDetail = "";
-        String issueUrgencyValue;
-
-        if (title.getText() != null) {
-            issueTitle = title.getText().toString();
-        }
-
-        if (description.getText() != null) {
-            issueDescription = description.getText().toString();
-        }
-
-        if (category.getSelectedItem() != null) {
-            issueCategory = category.getSelectedItem().toString();
-        }
-
-        if (location.getSelectedItem() != null) {
-            issueLocation = location.getSelectedItem().toString();
-        }
-
-        if (locationDetail.getText() != null) {
-            issueLocationDetail = locationDetail.getText().toString();
-        }
-
-        issueUrgencyValue = Integer.toString(urgencyValue.getProgress());
-
+        String issueTitle = title.getText() != null ? title.getText().toString() : "";
+        String issueDescription = description.getText() != null ? description.getText().toString() : "";
+        String issueCategory = categorySpinner.getSelectedItem().equals("Catégorie") ? null : category.getSelectedItem().toString();
+        String issueLocation = locationSpinner.getSelectedItem().equals("Lieu") ? null : location.getSelectedItem().toString();
+        String issueLocationDetail = locationDetail.getText() != null ? locationDetail.getText().toString() : "";
+        String issueEmail = email.getText() != null ? email.getText().toString() : "";
+        String issueUrgencyValue = Urgency.getFromId(urgencyValue.getProgress());
         String date = new SimpleDateFormat("dd/MM/yy", Locale.FRENCH).format(Calendar.getInstance().getTime());
 
         return new Issue(issueTitle,
-                "Manque",
+                issueCategory,
                 issueDescription,
                 issueLocation,
                 issueLocationDetail,
-                "Faible",
-                "email",
+                issueUrgencyValue,
+                issueEmail,
                 date);
     }
 
@@ -229,7 +211,7 @@ public class DeclarationActivity extends Activity implements View.OnClickListene
             categories.add(category.getName());
         }
 
-        Spinner categorySpinner = findViewById(R.id.category);
+        categorySpinner = findViewById(R.id.category);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(DeclarationActivity.this, android.R.layout.simple_spinner_item, categories) {
             @Override
             public boolean isEnabled(int position) {
@@ -268,7 +250,7 @@ public class DeclarationActivity extends Activity implements View.OnClickListene
             locations.add(location.getName());
         }
 
-        Spinner locationSpinner = findViewById(R.id.location);
+        locationSpinner = findViewById(R.id.location);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(DeclarationActivity.this, android.R.layout.simple_spinner_item, locations) {
             @Override
             public boolean isEnabled(int position) {
@@ -294,7 +276,7 @@ public class DeclarationActivity extends Activity implements View.OnClickListene
                     Toast.makeText(getApplicationContext(), "Sélectionné : " + selectedLocation, Toast.LENGTH_SHORT).show();
                 }
             }
-            
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
