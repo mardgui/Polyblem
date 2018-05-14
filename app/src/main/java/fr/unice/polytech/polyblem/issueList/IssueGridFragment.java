@@ -20,11 +20,12 @@ import fr.unice.polytech.polyblem.issue.IssueFragment;
 import fr.unice.polytech.polyblem.model.Issue;
 import fr.unice.polytech.polyblem.model.Urgency;
 
-public class IssueGridFragment extends Fragment {
+public class IssueGridFragment extends Fragment implements SearchView.OnQueryTextListener {
 
     private IssueCustomAdapter issueCustomAdapter;
     private Database database;
     private List<Issue> issueList;
+    private SearchView searchView;
 
     public IssueGridFragment() {
     }
@@ -44,13 +45,14 @@ public class IssueGridFragment extends Fragment {
         GridView gridView = (GridView) getActivity().findViewById(R.id.issue_grid);
         gridView.setAdapter(issueCustomAdapter);
 
-        final SearchView searchView = (SearchView) getActivity().findViewById(R.id.search);
+        searchView = (SearchView) getActivity().findViewById(R.id.search);
         searchView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 searchView.setIconified(false);
             }
         });
+        searchView.setOnQueryTextListener(this);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -69,6 +71,17 @@ public class IssueGridFragment extends Fragment {
                         .commit();
             }
         });
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        issueCustomAdapter.filter(newText);
+        return false;
     }
 
     @Override

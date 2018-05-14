@@ -11,15 +11,23 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import fr.unice.polytech.polyblem.R;
 import fr.unice.polytech.polyblem.model.Issue;
 
 public class IssueCustomAdapter extends ArrayAdapter<Issue> {
 
+    private List<Issue> issueList = null;
+    private ArrayList<Issue> arrayList;
+
     public IssueCustomAdapter(Context context, List<Issue> issueList) {
         super(context, 0, issueList);
+        this.issueList = issueList;
+        this.arrayList = new ArrayList<>();
+        this.arrayList.addAll(issueList);
     }
 
     @NonNull
@@ -43,5 +51,20 @@ public class IssueCustomAdapter extends ArrayAdapter<Issue> {
         location.setText(issue.getLocation());
 
         return convertView;
+    }
+
+    public void filter(String charText) {
+        charText = charText.toLowerCase(Locale.getDefault());
+        issueList.clear();
+        if (charText.length() == 0) {
+            issueList.addAll(arrayList);
+        } else {
+            for (Issue issue : arrayList) {
+                if (issue.getDescription().toLowerCase(Locale.getDefault()).contains(charText) || issue.getLocationDetails().toLowerCase(Locale.getDefault()).contains(charText) || issue.getTitle().toLowerCase(Locale.getDefault()).contains(charText) || issue.getLocation().toLowerCase(Locale.getDefault()).contains(charText) || issue.getEmail().toLowerCase(Locale.getDefault()).contains(charText) || issue.getCategory().toLowerCase(Locale.getDefault()).contains(charText)) {
+                    issueList.add(issue);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 }
