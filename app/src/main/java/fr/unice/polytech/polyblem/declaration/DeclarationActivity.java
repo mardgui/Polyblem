@@ -10,6 +10,8 @@ import android.support.v4.content.FileProvider;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -23,11 +25,14 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import fr.unice.polytech.polyblem.R;
 import fr.unice.polytech.polyblem.bdd.Database;
+import fr.unice.polytech.polyblem.model.Category;
 import fr.unice.polytech.polyblem.model.Issue;
 import fr.unice.polytech.polyblem.model.Photo;
 
@@ -37,16 +42,17 @@ import fr.unice.polytech.polyblem.model.Photo;
 
 public class DeclarationActivity extends Activity implements View.OnClickListener {
 
-    static final int REQUEST_TAKE_PHOTO = 1;
+    private static final int REQUEST_TAKE_PHOTO = 1;
 
-    List<Photo> photoList = new ArrayList<>();
-    String mCurrentPhotoPath;
+    private List<Photo> photoList = new ArrayList<>();
+    private String mCurrentPhotoPath;
+    private Spinner categorySpinner;
+    private List<String> categories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_declaration);
-        Button send = findViewById(R.id.send);
         Button addPicture = findViewById(R.id.join_image);
         addPicture.setOnClickListener(this);
 
@@ -54,19 +60,8 @@ public class DeclarationActivity extends Activity implements View.OnClickListene
         ImageView noImage = findViewById(R.id.noImageAdded);
         noImage.setImageResource(R.drawable.noimage);
 
-        send.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Issue issue = createIssue();
-                Database database = new Database(getApplicationContext());
-                long id = database.addIssue(issue);
-                Log.i("DeclarationActivity", issue.toString());
-                for (int i = 0; i < photoList.size(); i++) {
-                    database.addPicture(id, photoList.get(i).getUrl());
-                }
-                finish();
-            }
-        });
+        setSendButton();
+        setCategoriesSpinner();
     }
 
     @Override
@@ -115,7 +110,7 @@ public class DeclarationActivity extends Activity implements View.OnClickListene
 
     private void setAdapater() {
         HorizontalScrollView horizontalScrollView = findViewById(R.id.title_horizontalScrollView);
-        if( horizontalScrollView.getVisibility() == View.INVISIBLE) {
+        if (horizontalScrollView.getVisibility() == View.INVISIBLE) {
             findViewById(R.id.title_horizontalScrollView).setVisibility(View.VISIBLE);
             findViewById(R.id.noImageAdded).setVisibility(View.INVISIBLE);
         }
@@ -196,6 +191,8 @@ public class DeclarationActivity extends Activity implements View.OnClickListene
 
         issueUrgencyValue = Integer.toString(urgencyValue.getProgress());
 
+        String date = new SimpleDateFormat("dd/MM/yy", Locale.FRENCH).format(Calendar.getInstance().getTime());
+
         return new Issue(issueTitle,
                 "Manque",
                 issueDescription,
@@ -203,8 +200,48 @@ public class DeclarationActivity extends Activity implements View.OnClickListene
                 issueLocationDetail,
                 "Faible",
                 "email",
-                "date");
+                date);
     }
 
+    private void setSendButton() {
+        Button send = findViewById(R.id.send);
+        send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Issue issue = createIssue();
+                Database database = new Database(getApplicationContext());
+                long id = database.addIssue(issue);
+                Log.i("DeclarationActivity", issue.toString());
+                for (int i = 0; i < photoList.size(); i++) {
+                    database.addPicture(id, photoList.get(i).getUrl());
+                }
+                finish();
+            }
+        });
+    }
 
+    private void setCategoriesSpinner() {
+        categories = new ArrayList<>();
+        for (Category category : Category.values()) {
+            categories.add(category.getName());
+        }
+
+        categorySpinner = findViewById(R.id.category);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(DeclarationActivity.this,
+                android.R.layout.simple_spinner_item, categories);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categorySpinner.setAdapter(adapter);
+        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.v("item", (String) parent.getItemAtPosition(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // TODO Auto-generated method stub
+            }
+        });
+    }
 }

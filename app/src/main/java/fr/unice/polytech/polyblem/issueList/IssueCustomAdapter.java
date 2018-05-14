@@ -34,14 +34,13 @@ public class IssueCustomAdapter extends ArrayAdapter<Issue> {
         TextView title = convertView.findViewById(R.id.title);
         TextView date = convertView.findViewById(R.id.date);
         ImageView urgency = convertView.findViewById(R.id.urgency);
+        TextView location = convertView.findViewById(R.id.location);
 
         urgency.setImageResource(issue.getUrgency().getId());
 
-        Log.d("Urgence: ", issue.getUrgency().getName() + " " + issue.getUrgency().getId());
-        Log.d("Date: ", issue.getDate());
-
         title.setText(issue.getTitle());
         date.setText(issue.getDate());
+        location.setText(issue.getLocation());
 
         return convertView;
     }
