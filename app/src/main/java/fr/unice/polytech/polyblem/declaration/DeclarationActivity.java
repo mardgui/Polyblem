@@ -169,12 +169,12 @@ public class DeclarationActivity extends Activity implements View.OnClickListene
         SeekBar urgencyValue = findViewById(R.id.urgencyValue);
         EditText email = findViewById(R.id.email);
 
-        String issueTitle = title.getText() != null ? title.getText().toString() : null;
-        String issueDescription = description.getText() != null ? description.getText().toString() : null;
+        String issueTitle = title.getText() != null ? title.getText().toString() : "";
+        String issueDescription = description.getText() != null ? description.getText().toString() : "";
         String issueCategory = categorySpinner.getSelectedItem().equals("Catégorie") ? null : categorySpinner.getSelectedItem().toString();
         String issueLocation = locationSpinner.getSelectedItem().equals("Lieu") ? null : locationSpinner.getSelectedItem().toString();
-        String issueLocationDetail = locationDetail.getText() != null ? locationDetail.getText().toString() : null;
-        String issueEmail = email.getText() != null ? email.getText().toString() : null;
+        String issueLocationDetail = locationDetail.getText() != null ? locationDetail.getText().toString() : "";
+        String issueEmail = email.getText() != null ? email.getText().toString() : "";
         String issueUrgencyValue = Urgency.getFromId(urgencyValue.getProgress());
         String date = new SimpleDateFormat("dd/MM/yy", Locale.FRENCH).format(Calendar.getInstance().getTime());
 

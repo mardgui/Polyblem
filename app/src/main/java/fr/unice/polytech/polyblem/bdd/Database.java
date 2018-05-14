@@ -42,11 +42,11 @@ public class Database extends SQLiteOpenHelper {
             ISSUE_DATE + " TEXT)";
 
     private static final String ISSUE_INSERT = "INSERT INTO issue(titleissue, category, description, location, locationdetails, urgency, email, dateissue) " +
-            "VALUES ('Issue1', 'Casse', null,'Bat O', '355', 'Faible', 'marion@etu.fr', '16/05/18');";
+            "VALUES ('Issue1', 'Casse', '','Bat O', '355', 'Faible', 'marion@etu.fr', '16/05/18');";
     private static final String ISSUE_INSERT2 =  " INSERT INTO issue(titleissue, category, description, location,locationdetails, urgency, email, dateissue)" +
-            "VALUES ('Issue2', 'Propreté', null,'Bat E', '235', 'Forte', 'florian@etu.fr', '10/05/18');";
+            "VALUES ('Issue2', 'Propreté', '','Bat E', '235', 'Forte', 'florian@etu.fr', '10/05/18');";
     private static final String ISSUE_INSERT3 = "INSERT INTO issue(titleissue, category, description, location,locationdetails, urgency, email, dateissue)" +
-            "VALUES ('Issue3', 'Autre', null, 'Bat W', '235', 'Moyen', 'quentin@etu.fr', '14/05/18');";
+            "VALUES ('Issue3', 'Autre', '', 'Bat W', '235', 'Moyen', 'quentin@etu.fr', '14/05/18');";
 
 
     private static final String PHOTO_TABLE_NAME = "photos";
