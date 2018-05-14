@@ -5,6 +5,7 @@ package fr.unice.polytech.polyblem.model;
  */
 
 public enum Category {
+    PLACEHOLDER("Catégorie"),
     MANQUE("Manque"),
     CASSE("Casse"),
     DYSFONCTIONNEMENT("Dysfonctionnement"),

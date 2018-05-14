@@ -2,14 +2,17 @@ package fr.unice.polytech.polyblem.declaration;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -20,6 +23,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,7 +39,9 @@ import fr.unice.polytech.polyblem.R;
 import fr.unice.polytech.polyblem.bdd.Database;
 import fr.unice.polytech.polyblem.model.Category;
 import fr.unice.polytech.polyblem.model.Issue;
+import fr.unice.polytech.polyblem.model.Location;
 import fr.unice.polytech.polyblem.model.Photo;
+import fr.unice.polytech.polyblem.model.Urgency;
 
 /**
  * Created by Florian on 16/04/2018
@@ -46,8 +53,8 @@ public class DeclarationActivity extends Activity implements View.OnClickListene
 
     private List<Photo> photoList = new ArrayList<>();
     private String mCurrentPhotoPath;
+    private Spinner locationSpinner;
     private Spinner categorySpinner;
-    private List<String> categories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +69,7 @@ public class DeclarationActivity extends Activity implements View.OnClickListene
 
         setSendButton();
         setCategoriesSpinner();
+        setLocationSpinner();
     }
 
     @Override
@@ -161,45 +169,24 @@ public class DeclarationActivity extends Activity implements View.OnClickListene
         Spinner location = findViewById(R.id.location);
         EditText locationDetail = findViewById(R.id.locationDetail);
         SeekBar urgencyValue = findViewById(R.id.urgencyValue);
+        EditText email = findViewById(R.id.email);
 
-        String issueTitle = "";
-        String issueDescription = "";
-        String issueCategory = "";
-        String issueLocation = "";
-        String issueLocationDetail = "";
-        String issueUrgencyValue;
-
-        if (title.getText() != null) {
-            issueTitle = title.getText().toString();
-        }
-
-        if (description.getText() != null) {
-            issueDescription = description.getText().toString();
-        }
-
-        if (category.getSelectedItem() != null) {
-            issueCategory = category.getSelectedItem().toString();
-        }
-
-        if (location.getSelectedItem() != null) {
-            issueLocation = location.getSelectedItem().toString();
-        }
-
-        if (locationDetail.getText() != null) {
-            issueLocationDetail = locationDetail.getText().toString();
-        }
-
-        issueUrgencyValue = Integer.toString(urgencyValue.getProgress());
-
+        String issueTitle = title.getText() != null ? title.getText().toString() : "";
+        String issueDescription = description.getText() != null ? description.getText().toString() : "";
+        String issueCategory = categorySpinner.getSelectedItem().equals("Catégorie") ? null : category.getSelectedItem().toString();
+        String issueLocation = locationSpinner.getSelectedItem().equals("Lieu") ? null : location.getSelectedItem().toString();
+        String issueLocationDetail = locationDetail.getText() != null ? locationDetail.getText().toString() : "";
+        String issueEmail = email.getText() != null ? email.getText().toString() : "";
+        String issueUrgencyValue = Urgency.getFromId(urgencyValue.getProgress());
         String date = new SimpleDateFormat("dd/MM/yy", Locale.FRENCH).format(Calendar.getInstance().getTime());
 
         return new Issue(issueTitle,
-                "Manque",
+                issueCategory,
                 issueDescription,
                 issueLocation,
                 issueLocationDetail,
-                "Faible",
-                "email",
+                issueUrgencyValue,
+                issueEmail,
                 date);
     }
 
@@ -221,26 +208,79 @@ public class DeclarationActivity extends Activity implements View.OnClickListene
     }
 
     private void setCategoriesSpinner() {
-        categories = new ArrayList<>();
+        List<String> categories = new ArrayList<>();
         for (Category category : Category.values()) {
             categories.add(category.getName());
         }
 
         categorySpinner = findViewById(R.id.category);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(DeclarationActivity.this,
-                android.R.layout.simple_spinner_item, categories);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(DeclarationActivity.this, android.R.layout.simple_spinner_item, categories) {
+            @Override
+            public boolean isEnabled(int position) {
+                return position != 0;
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView textView = (TextView) view;
+                textView.setTextColor(position == 0 ? Color.GRAY : Color.BLACK);
+                return view;
+            }
+        };
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(adapter);
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.v("item", (String) parent.getItemAtPosition(position));
+                String selectedCategory = (String) parent.getItemAtPosition(position);
+                if (position > 0) {
+                    Toast.makeText(getApplicationContext(), "Sélectionné : " + selectedCategory, Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // TODO Auto-generated method stub
+            }
+        });
+    }
+
+    private void setLocationSpinner() {
+        List<String> locations = new ArrayList<>();
+        for (Location location : Location.values()) {
+            locations.add(location.getName());
+        }
+
+        locationSpinner = findViewById(R.id.location);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(DeclarationActivity.this, android.R.layout.simple_spinner_item, locations) {
+            @Override
+            public boolean isEnabled(int position) {
+                return position != 0;
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView textView = (TextView) view;
+                textView.setTextColor(position == 0 ? Color.GRAY : Color.BLACK);
+                return view;
+            }
+        };
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        locationSpinner.setAdapter(adapter);
+        locationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedLocation = (String) parent.getItemAtPosition(position);
+                if (position > 0) {
+                    Toast.makeText(getApplicationContext(), "Sélectionné : " + selectedLocation, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
             }
         });
     }

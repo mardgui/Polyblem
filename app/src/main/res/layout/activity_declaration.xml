@@ -64,11 +64,9 @@
                 android:id="@+id/grid_picture"
                 android:layout_width="fill_parent"
                 android:scrollbars="none"
-                android:layout_height="match_parent"
-                android:horizontalSpacing="10dp">
+                android:layout_height="match_parent">
             </GridView>
         </LinearLayout>
-
     </HorizontalScrollView>
 
     <Spinner
@@ -83,7 +81,7 @@
         android:id="@+id/locationDetail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/noImageAdded"
+        android:layout_below="@+id/location"
         android:ems="10"
         android:hint="Détail"
         android:inputType="textPersonName" />
