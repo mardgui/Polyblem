@@ -34,15 +34,10 @@ public class IssueFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         TextView title = getView().findViewById(R.id.title);
-        setText(issue.getTitle(),title );
         title.setTextColor(getResources().getColor(R.color.colorPrimary));
         setText(issue.getCategory(), (TextView) getView().findViewById(R.id.categorie));
         setText(issue.getDescription(), (TextView) getView().findViewById(R.id.description));
-        setText(issue.getLocation(), (TextView) getView().findViewById(R.id.localisation));
         setText(issue.getEmail(), (TextView) getView().findViewById(R.id.email));
-
-        ImageView urgency = getView().findViewById(R.id.urgency);
-        urgency.setImageResource(issue.getUrgency().getId());
 
         Database database = new Database(getContext());
         List<Photo> photoList = database.getPictures(issue);

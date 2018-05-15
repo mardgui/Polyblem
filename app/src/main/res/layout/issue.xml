@@ -119,39 +119,10 @@
 
         </LinearLayout>
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_below="@id/category_all"
-            android:id="@+id/localisation_all">
-
-            <TextView
-                android:id="@+id/label_localisation"
-                android:layout_width="200dp"
-                android:paddingLeft="5dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/label_loca"
-                android:textColor="@color/colorPrimary"
-                tools:text="Localisation :" />
-
-            <TextView
-                android:id="@+id/localisation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/localisation1"
-                android:layout_weight="1"
-                tools:text="Parking A" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/localisation_all"
             android:orientation="horizontal"
             android:id="@+id/send_email_layout">
 

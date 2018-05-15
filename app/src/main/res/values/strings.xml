@@ -6,7 +6,7 @@
     <string name="label_loca">Localisation : </string>
     <string name="label_email">Email : </string>
     <string name="email">email@email.fr</string>
-    <string name="localisation1">D360</string>
+    <string name="localisation1">Batiment O</string>
     <string name="description">vitre cassé</string>
     <string name="titre">Titre</string>
     <string name="image">image</string>
@@ -15,4 +15,6 @@
     <string name="envoyer_un_email">Envoyer un email</string>
     <string name="label_description">Description :</string>
     <string name="aide">Aide</string>
+    <string name="detail_loca">D-360</string>
+    <string name="date">JJ/MM/AA</string>
 </resources>
