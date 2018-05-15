@@ -2,7 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:layout_marginRight="5dp"
+    android:layout_marginLeft="5dp">
 
     <include
         android:id="@+id/header_issue"
@@ -15,9 +17,9 @@
 
     <RelativeLayout
         android:id="@+id/first_part"
-        android:layout_below="@id/header_issue"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/header_issue">
 
         <ImageView
             android:id="@+id/noPicture"
@@ -51,14 +53,134 @@
     </RelativeLayout>
 
 
-    <LinearLayout
-        android:id="@+id/actions"
+
+    <RelativeLayout
+        android:id="@+id/second_part"
         android:layout_below="@id/first_part"
-        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:background="@color/white"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp">
+
+        <LinearLayout
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/description_all">
+
+            <TextView
+                android:id="@+id/label_description"
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/label_description"
+                android:textColor="@color/colorPrimary"
+                tools:text="Description :" />
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/description" />
+        </LinearLayout>
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/description_all"
+            android:id="@+id/category_all">
+
+            <TextView
+                android:id="@+id/label_category"
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/label_cat"
+                android:textColor="@color/colorPrimary"
+                tools:text="Catégorie :" />
+
+            <TextView
+                android:id="@+id/categorie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/categorie"
+                tools:text="Catégorie" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/category_all"
+            android:id="@+id/localisation_all">
+
+            <TextView
+                android:id="@+id/label_localisation"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/label_loca"
+                android:textColor="@color/colorPrimary"
+                tools:text="Localisation :" />
+
+            <TextView
+                android:id="@+id/localisation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/localisation1"
+                android:layout_weight="1"
+                tools:text="Parking A" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/localisation_all"
+            android:orientation="horizontal"
+            android:id="@+id/send_email_layout">
+
+            <TextView
+                android:id="@+id/label_email"
+                android:layout_width="199dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/label_email"
+                android:textColor="@color/colorPrimary"
+                tools:text="Email :" />
+
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/email" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/actions"
+        android:layout_below="@id/second_part"
         android:gravity="center"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:paddingBottom="20dp"
         android:paddingTop="20dp">
@@ -82,115 +204,15 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@drawable/ic_email"/>
+
+        <Button
+            android:id="@+id/add_issue"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="40dp"
+            android:background="@drawable/folder"/>
     </LinearLayout>
 
 
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/actions"
-        android:background="@color/white">
-
-        <LinearLayout
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/description_all">
-
-            <TextView
-                android:id="@+id/label_description"
-                android:layout_width="170dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="@string/label_description"
-                tools:text="Description :" />
-
-            <TextView
-                android:id="@+id/description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/description" />
-        </LinearLayout>
-
-
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_below="@id/description_all"
-            android:id="@+id/category_all">
-
-            <TextView
-                android:id="@+id/label_category"
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="@string/label_cat"
-                tools:text="Catégorie :" />
-
-            <TextView
-                android:id="@+id/categorie"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/categorie"
-                tools:text="Catégorie" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_below="@id/category_all"
-            android:id="@+id/localisation_all">
-            <TextView
-                android:id="@+id/label_localisation"
-                android:layout_width="170dp"
-                android:layout_height="wrap_content"
-                android:text="@string/label_loca"
-                android:layout_weight="1"
-                tools:text="Localisation :" />
-
-            <TextView
-                android:id="@+id/localisation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/localisation1"
-                android:layout_weight="1"
-                tools:text="Parking A" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/localisation_all"
-            android:orientation="horizontal"
-            android:id="@+id/send_email_layout">
-
-            <TextView
-                android:id="@+id/label_email"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:text="@string/label_email"
-                tools:text="Email :" />
-
-            <TextView
-                android:id="@+id/email"
-                android:layout_height="wrap_content"
-                android:layout_width="150dp"
-                android:text="@string/email" />
-        </LinearLayout>
-
-    </RelativeLayout>
 
 </RelativeLayout>

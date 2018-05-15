@@ -16,6 +16,7 @@ import java.util.List;
 
 import fr.unice.polytech.polyblem.R;
 import fr.unice.polytech.polyblem.bdd.Database;
+import fr.unice.polytech.polyblem.declaration.DeclarationActivity;
 import fr.unice.polytech.polyblem.model.Issue;
 import fr.unice.polytech.polyblem.model.Photo;
 import me.relex.circleindicator.CircleIndicator;
@@ -32,7 +33,9 @@ public class IssueFragment extends Fragment {
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        setText(issue.getTitle(), (TextView) getView().findViewById(R.id.title));
+        TextView title = getView().findViewById(R.id.title);
+        setText(issue.getTitle(),title );
+        title.setTextColor(getResources().getColor(R.color.colorPrimary));
         setText(issue.getCategory(), (TextView) getView().findViewById(R.id.categorie));
         setText(issue.getDescription(), (TextView) getView().findViewById(R.id.description));
         setText(issue.getLocation(), (TextView) getView().findViewById(R.id.localisation));
@@ -52,6 +55,8 @@ public class IssueFragment extends Fragment {
             ImageView noPicture = getView().findViewById(R.id.noPicture);
             noPicture.setImageResource(R.drawable.nopicture);
         }
+
+        getActivity().findViewById(R.id.fab).setVisibility(View.GONE);
 
         super.onActivityCreated(savedInstanceState);
 
@@ -110,5 +115,26 @@ public class IssueFragment extends Fragment {
                 getContext().startActivity(Intent.createChooser(agendaIntent, "Ajouter à l'agenda..."));
             }
         });
+
+        Button deleteIssue = getView().findViewById(R.id.delete_issue);
+        deleteIssue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+              Database database = new Database(getContext());
+              database.deleteIssue(issue);
+              getFragmentManager().popBackStack();
+            }
+        });
+
+        Button addIssue = getView().findViewById(R.id.add_issue);
+        addIssue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(getContext(),
+                        DeclarationActivity.class);
+                startActivity(myIntent);
+            }
+        });
+
     }
 }

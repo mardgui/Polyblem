@@ -29,7 +29,13 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setImageResource(R.drawable.ic_add_black_24dp);
+
+        if(fab.getVisibility() == View.GONE){
+            fab.setVisibility(View.VISIBLE);
+        }
+        fab.setBackgroundColor(0);
+        fab.setImageResource(R.drawable.folder);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

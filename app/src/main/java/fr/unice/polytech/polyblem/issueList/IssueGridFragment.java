@@ -36,6 +36,7 @@ public class IssueGridFragment extends Fragment implements SearchView.OnQueryTex
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        getActivity().findViewById(R.id.fab).setVisibility(View.VISIBLE);
         database = new Database(getActivity());
         issueList = database.getAllIssues();
         sortIssueList();

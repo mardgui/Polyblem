@@ -32,6 +32,8 @@ public class HelpFragment extends Fragment {
         TextView textDelete = getView().findViewById(R.id.delete_text);
         textDelete.setText("Ce bouton permet de supprimer définitivement un incident.");
 
+        getActivity().findViewById(R.id.fab).setVisibility(View.GONE);
+
         super.onActivityCreated(savedInstanceState);
     }
 
