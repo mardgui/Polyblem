@@ -25,17 +25,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
-
+        invalidateOptionsMenu();
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = findViewById(R.id.fab);
-
-        if(fab.getVisibility() == View.GONE){
-            fab.setVisibility(View.VISIBLE);
-        }
-        fab.setBackgroundColor(0);
-        fab.setImageResource(R.drawable.folder);
-
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuItem item = menu.findItem(R.id.action_delete);
+        item.setVisible(false);
         return true;
     }
 
@@ -83,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
                     .commit();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

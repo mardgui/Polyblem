@@ -6,6 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -16,7 +19,6 @@ import java.util.List;
 
 import fr.unice.polytech.polyblem.R;
 import fr.unice.polytech.polyblem.bdd.Database;
-import fr.unice.polytech.polyblem.declaration.DeclarationActivity;
 import fr.unice.polytech.polyblem.model.Issue;
 import fr.unice.polytech.polyblem.model.Photo;
 import me.relex.circleindicator.CircleIndicator;
@@ -35,9 +37,14 @@ public class IssueFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         TextView title = getView().findViewById(R.id.title);
         title.setTextColor(getResources().getColor(R.color.colorPrimary));
+        setText(issue.getTitle(), title);
+        setText(issue.getDate(), (TextView) getView().findViewById(R.id.date));
         setText(issue.getCategory(), (TextView) getView().findViewById(R.id.categorie));
         setText(issue.getDescription(), (TextView) getView().findViewById(R.id.description));
         setText(issue.getEmail(), (TextView) getView().findViewById(R.id.email));
+
+        ImageView urgency = getView().findViewById(R.id.urgency);
+        urgency.setImageResource(issue.getUrgency().getId());
 
         Database database = new Database(getContext());
         List<Photo> photoList = database.getPictures(issue);
@@ -51,11 +58,11 @@ public class IssueFragment extends Fragment {
             noPicture.setImageResource(R.drawable.nopicture);
         }
 
-        getActivity().findViewById(R.id.fab).setVisibility(View.GONE);
-
         super.onActivityCreated(savedInstanceState);
 
         setListners();
+
+        setHasOptionsMenu(true);
 
     }
 
@@ -83,6 +90,25 @@ public class IssueFragment extends Fragment {
         return inflater.inflate(R.layout.issue, container, false);
     }
 
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        MenuItem item = menu.findItem(R.id.action_delete);
+        item.setVisible(true);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+       if (item.getItemId() ==  R.id.action_delete) {
+            Database database = new Database(getContext());
+            database.deleteIssue(issue);
+            getFragmentManager().popBackStack();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void setListners(){
         Button sendEmail = getView().findViewById(R.id.send_email);
         sendEmail.setOnClickListener(new View.OnClickListener() {
@@ -108,26 +134,6 @@ public class IssueFragment extends Fragment {
                 agendaIntent.putExtra("description", "S'occuper de l'incident " + issue.getTitle() + " déclaré le " + issue.getDate() + " :\n" + issue.getDescription());
 
                 getContext().startActivity(Intent.createChooser(agendaIntent, "Ajouter à l'agenda..."));
-            }
-        });
-
-        Button deleteIssue = getView().findViewById(R.id.delete_issue);
-        deleteIssue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-              Database database = new Database(getContext());
-              database.deleteIssue(issue);
-              getFragmentManager().popBackStack();
-            }
-        });
-
-        Button addIssue = getView().findViewById(R.id.add_issue);
-        addIssue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent myIntent = new Intent(getContext(),
-                        DeclarationActivity.class);
-                startActivity(myIntent);
             }
         });
 

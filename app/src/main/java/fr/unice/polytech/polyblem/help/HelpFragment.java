@@ -29,9 +29,6 @@ public class HelpFragment extends Fragment {
         TextView textAgenda = getView().findViewById(R.id.agenda_text);
         textAgenda.setText("Ce bouton permet d'ajouter un incident à l'agenda de votre choix.");
 
-        TextView textDelete = getView().findViewById(R.id.delete_text);
-        textDelete.setText("Ce bouton permet de supprimer définitivement un incident.");
-
         getActivity().findViewById(R.id.fab).setVisibility(View.GONE);
 
         super.onActivityCreated(savedInstanceState);

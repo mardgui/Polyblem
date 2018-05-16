@@ -161,31 +161,18 @@
         android:paddingTop="20dp">
 
         <Button
-            android:id="@+id/delete_issue"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/ic_delete"/>
-
-        <Button
             android:id="@+id/add_to_agenda"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginRight="50dp"
-            android:layout_marginLeft="50dp"
             android:background="@drawable/ic_calendar"/>
 
         <Button
             android:id="@+id/send_email"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_marginLeft="50dp"
             android:background="@drawable/ic_email"/>
 
-        <Button
-            android:id="@+id/add_issue"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="40dp"
-            android:background="@drawable/folder"/>
     </LinearLayout>
 
 
