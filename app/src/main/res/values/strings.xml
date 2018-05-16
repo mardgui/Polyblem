@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Polyblem</string>
     <string name="action_help">Aide</string>
-    <string name="action_delete">Supprimer l'incident</string>
+    <string name="action_delete">Supprimer l\'incident</string>
     <string name="action_logout">Déconnecter</string>
     <string name="categorie">Catégorie</string>
     <string name="label_loca">Localisation : </string>
