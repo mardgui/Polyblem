@@ -58,7 +58,7 @@ public class DeclarationActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_declaration);
 
-        Button addPicture = findViewById(R.id.join_image);
+        Button addPicture = findViewById(R.id.add_image);
         addPicture.setOnClickListener(this);
 
         findViewById(R.id.title_horizontalScrollView).setVisibility(View.INVISIBLE);
@@ -73,7 +73,7 @@ public class DeclarationActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.join_image:
+            case R.id.add_image:
                 dispatchTakePictureIntent();
                 break;
             default:
@@ -165,7 +165,7 @@ public class DeclarationActivity extends AppCompatActivity implements View.OnCli
         EditText description = findViewById(R.id.description);
         Spinner categorySpinner = findViewById(R.id.category);
         Spinner locationSpinner = findViewById(R.id.location);
-        EditText locationDetail = findViewById(R.id.locationDetail);
+        EditText locationDetail = findViewById(R.id.location_detail);
         SeekBar urgencyValue = findViewById(R.id.urgencyValue);
         EditText email = findViewById(R.id.email);
 
