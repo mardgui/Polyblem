@@ -93,7 +93,8 @@
                         android:id="@+id/grid_picture"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scrollbars="none" />
+                        android:scrollbars="none"
+                        android:adjustViewBounds= "true"/>
                 </LinearLayout>
             </HorizontalScrollView>
         </RelativeLayout>

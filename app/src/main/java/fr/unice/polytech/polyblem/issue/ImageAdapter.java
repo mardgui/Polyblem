@@ -1,6 +1,7 @@
 package fr.unice.polytech.polyblem.issue;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
@@ -40,7 +41,8 @@ public class ImageAdapter extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup view, int position) {
         View myImageLayout = inflater.inflate(R.layout.slide, view, false);
         ImageView myImage = myImageLayout.findViewById(R.id.image);
-        myImage.setImageBitmap(BitmapFactory.decodeFile(images.get(position).getUrl()));
+        Bitmap image = BitmapFactory.decodeFile(images.get(position).getUrl());
+        myImage.setImageBitmap(Bitmap.createScaledBitmap(image, image.getScaledWidth(50), image.getScaledHeight(50), true));
         view.addView(myImageLayout, 0);
         return myImageLayout;
     }

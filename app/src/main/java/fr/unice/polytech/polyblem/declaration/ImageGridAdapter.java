@@ -1,6 +1,7 @@
 package fr.unice.polytech.polyblem.declaration;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -25,6 +26,7 @@ public class ImageGridAdapter extends ArrayAdapter<Photo> {
 
 
     private List<Photo> photoList;
+
     public ImageGridAdapter(Context context, List<Photo> photoList) {
         super(context, 0, photoList);
         this.photoList = photoList;
@@ -42,16 +44,15 @@ public class ImageGridAdapter extends ArrayAdapter<Photo> {
 
         ImageView imageView = convertView.findViewById(R.id.image);
 
-        imageView.setImageBitmap(BitmapFactory.decodeFile(photo.getUrl()));
-
+        Bitmap image = BitmapFactory.decodeFile(photo.getUrl());
+        imageView.setImageBitmap(Bitmap.createScaledBitmap(image, image.getScaledWidth(50), image.getScaledHeight(50), true));
         Button button = convertView.findViewById(R.id.delete);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 photoList.remove(photo);
                 notifyDataSetChanged();
-                File file = new File(photo.getUrl());
-                boolean okdelete = file.delete();
+                new File(photo.getUrl()).delete();
             }
         });
 
