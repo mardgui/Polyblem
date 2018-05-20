@@ -10,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import fr.unice.polytech.polyblem.bdd.Database;
 import fr.unice.polytech.polyblem.declaration.DeclarationActivity;
 import fr.unice.polytech.polyblem.help.HelpFragment;
 import fr.unice.polytech.polyblem.issueList.IssueGridFragment;
@@ -28,25 +27,23 @@ public class MainActivity extends AppCompatActivity {
         invalidateOptionsMenu();
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.popBackStack(BACK_STACK_ROOT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, new IssueGridFragment())
+                .commit();
+
+        FloatingActionButton addIssue = findViewById(R.id.fab);
+        addIssue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent myIntent = new Intent(MainActivity.this,
+                Intent declarationActivity = new Intent(MainActivity.this,
                         DeclarationActivity.class);
-                startActivity(myIntent);
+                startActivity(declarationActivity);
             }
         });
 
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.popBackStack(BACK_STACK_ROOT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-
-        fragmentManager.beginTransaction()
-               .replace(R.id.container, new IssueGridFragment())
-               .commit();
-
-        Database db = new Database(getApplicationContext());
+        //Database db = new Database(getApplicationContext());
 
     }
 

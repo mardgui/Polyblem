@@ -1,6 +1,7 @@
 package fr.unice.polytech.polyblem.issue;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import de.cketti.mailto.EmailIntentBuilder;
 import fr.unice.polytech.polyblem.R;
 import fr.unice.polytech.polyblem.bdd.Database;
 import fr.unice.polytech.polyblem.model.Issue;
@@ -60,23 +62,22 @@ public class IssueFragment extends Fragment {
 
         super.onActivityCreated(savedInstanceState);
 
-        setListners();
+        setListeners();
 
         setHasOptionsMenu(true);
 
     }
 
-    private void setText(String string, TextView textView){
-        if(string != null){
+    private void setText(String string, TextView textView) {
+        if (string != null) {
             textView.setText(string);
-        }
-        else
+        } else
             textView.setText("Non indiqué");
     }
 
     private void initSlides(final List<Photo> photos) {
         ViewPager mPager = getView().findViewById(R.id.pager);
-        mPager.setAdapter(new ImageAdapter(getContext(),photos));
+        mPager.setAdapter(new ImageAdapter(getContext(), photos));
         CircleIndicator indicator = getView().findViewById(R.id.indicator);
         indicator.setViewPager(mPager);
     }
@@ -100,7 +101,7 @@ public class IssueFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-       if (item.getItemId() ==  R.id.action_delete) {
+        if (item.getItemId() == R.id.action_delete) {
             Database database = new Database(getContext());
             database.deleteIssue(issue);
             getFragmentManager().popBackStack();
@@ -109,18 +110,16 @@ public class IssueFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    private void setListners(){
+    private void setListeners() {
         Button sendEmail = getView().findViewById(R.id.send_email);
         sendEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
-                emailIntent.setType("plain/text");
-                emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{issue.getEmail()});
-                emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Incident : " + issue.getTitle() + " - " + issue.getDate());
-                emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "J'aimerais plus détails concernant cet incident : \n");
-
-                getContext().startActivity(Intent.createChooser(emailIntent, "Envoyer un email..."));
+                EmailIntentBuilder.from(getActivity())
+                        .to(issue.getEmail())
+                        .subject("Incident : " + issue.getTitle() + " - " + issue.getDate())
+                        .body("J'aimerais plus détails concernant cet incident : \n")
+                        .start();
             }
         });
 
@@ -133,7 +132,7 @@ public class IssueFragment extends Fragment {
                 agendaIntent.putExtra("title", "Incident : " + issue.getTitle());
                 agendaIntent.putExtra("description", "S'occuper de l'incident " + issue.getTitle() + " déclaré le " + issue.getDate() + " :\n" + issue.getDescription());
 
-                getContext().startActivity(Intent.createChooser(agendaIntent, "Ajouter à l'agenda..."));
+                startActivity(Intent.createChooser(agendaIntent, "Ajouter à l'agenda..."));
             }
         });
 

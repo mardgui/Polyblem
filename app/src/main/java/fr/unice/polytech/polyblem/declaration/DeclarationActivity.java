@@ -1,6 +1,5 @@
 package fr.unice.polytech.polyblem.declaration;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -9,6 +8,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -46,7 +46,7 @@ import fr.unice.polytech.polyblem.model.Urgency;
  * Created by Florian on 16/04/2018
  */
 
-public class DeclarationActivity extends Activity implements View.OnClickListener {
+public class DeclarationActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final int REQUEST_TAKE_PHOTO = 1;
 

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,60 +8,60 @@
 
     <TextView
         android:id="@+id/title_help"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="@string/aide"
-        tools:text="Aide"
-        android:layout_marginTop="20dp"/>
+        android:text="@string/help"
+        tools:text="Aide" />
 
     <LinearLayout
+        android:id="@+id/calendar_explanation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
         android:layout_below="@id/title_help"
-        android:id="@+id/calendar_explanation"
-        android:layout_marginBottom="20dp">
+        android:layout_marginBottom="20dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/add_to_agenda_help"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/ic_calendar"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginRight="10dp"
+            android:background="@drawable/ic_calendar" />
+
         <TextView
             android:id="@+id/agenda_text"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 
     <LinearLayout
+        android:id="@+id/email_explanation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
         android:layout_below="@id/calendar_explanation"
-        android:id="@+id/email_explanation"
-        android:layout_marginBottom="20dp">
+        android:layout_marginBottom="20dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/send_email_help"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/ic_email"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginRight="10dp"
+            android:background="@drawable/ic_email" />
 
         <TextView
             android:id="@+id/email_text"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
-
 
 
 </RelativeLayout>

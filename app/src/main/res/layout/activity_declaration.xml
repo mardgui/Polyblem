@@ -1,129 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#F9F9FA"
-    tools:context=".declaration.DeclarationActivity">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 
-    <Spinner
-        android:id="@+id/category"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_margin="10dp"
-        android:spinnerMode="dropdown" />
+        android:background="#F9F9FA"
+        tools:context=".declaration.DeclarationActivity">
 
-    <EditText
-        android:id="@+id/title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/category"
-        android:ems="10"
-        android:hint="Titre"
-        android:inputType="textPersonName" />
+        <RelativeLayout
+            android:id="@+id/category_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background">
 
-    <EditText
-        android:id="@+id/description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/title"
-        android:ems="10"
-        android:hint="Description"
-        android:inputType="textMultiLine" />
+            <Spinner
+                android:id="@+id/category"
+                style="@style/Widget.AppCompat.DropDownItem.Spinner"
+                android:layout_width="match_parent"
+                android:layout_height="35dp" />
+        </RelativeLayout>
 
-    <Button
-        android:id="@+id/join_image"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/description"
-        android:text="Ajouter image" />
+        <RelativeLayout
+            android:id="@+id/title_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/category_layout"
+            android:background="@drawable/background">
 
-    <ImageView
-        android:id="@+id/noImageAdded"
-        android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:layout_below="@id/join_image" />
+            <EditText
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/title"
+                android:inputType="textPersonName"
+                android:textSize="16sp" />
+        </RelativeLayout>
 
-    <HorizontalScrollView
-        android:id="@+id/title_horizontalScrollView"
-        android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:layout_below="@id/join_image"
-        android:layout_margin="1dp"
-        android:fillViewport="false"
-        android:scrollbars="none">
+        <RelativeLayout
+            android:id="@+id/description_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title_layout"
+            android:background="@drawable/background">
+
+            <EditText
+                android:id="@+id/description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true"
+                android:hint="@string/description"
+                android:inputType="textMultiLine"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/add_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/description_layout"
+            android:text="@string/add_image" />
+
+        <RelativeLayout
+            android:id="@+id/image_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/add_image"
+            android:background="@drawable/background">
+
+            <ImageView
+                android:id="@+id/noImageAdded"
+                android:layout_width="match_parent"
+                android:layout_height="90dp" />
+
+            <HorizontalScrollView
+                android:id="@+id/title_horizontalScrollView"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_margin="1dp"
+                android:fillViewport="false"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <GridView
+                        android:id="@+id/grid_picture"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scrollbars="none" />
+                </LinearLayout>
+            </HorizontalScrollView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/location_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image_layout"
+            android:background="@drawable/background">
+
+            <Spinner
+                android:id="@+id/location"
+                style="@style/Widget.AppCompat.DropDownItem.Spinner"
+                android:layout_width="match_parent"
+                android:layout_height="35dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/location_detail_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/location_layout"
+            android:background="@drawable/background">
+
+            <EditText
+                android:id="@+id/location_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/localisation_detail"
+                android:inputType="textPersonName"
+                android:textSize="16sp" />
+        </RelativeLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:id="@+id/urgency_layout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/location_detail_layout"
+            android:background="@drawable/background">
 
-            <GridView
-                android:id="@+id/grid_picture"
+            <TextView
+                android:id="@+id/urgency"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/urgency"
+                android:textSize="16sp" />
+
+            <SeekBar
+                android:id="@+id/urgencyValue"
+                style="@android:style/Widget.DeviceDefault.Light.SeekBar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scrollbars="none" />
+                android:max="2"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:progress="1" />
         </LinearLayout>
-    </HorizontalScrollView>
 
-    <Spinner
-        android:id="@+id/location"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/noImageAdded"
-        android:layout_margin="10dp"
-        android:spinnerMode="dropdown" />
+        <RelativeLayout
+            android:id="@+id/email_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/urgency_layout"
+            android:background="@drawable/background">
 
-    <EditText
-        android:id="@+id/locationDetail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/location"
-        android:ems="10"
-        android:hint="Détail"
-        android:inputType="textPersonName" />
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:ems="10"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:textSize="16sp" />
+        </RelativeLayout>
 
-    <TextView
-        android:id="@+id/urgency"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/locationDetail"
-        android:text="Urgence" />
+        <Button
+            android:id="@+id/send"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/email_layout"
+            android:text="@string/send" />
+    </RelativeLayout>
 
-    <SeekBar
-        android:id="@+id/urgencyValue"
-        style="@android:style/Widget.DeviceDefault.Light.SeekBar"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_alignTop="@+id/urgency"
-        android:layout_toEndOf="@+id/urgency"
-        android:max="2"
-        android:paddingEnd="16dp"
-        android:paddingStart="16dp"
-        android:progress="1" />
+</ScrollView>
 
-    <EditText
-        android:id="@+id/email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/urgency"
-        android:ems="10"
-        android:hint="email@domain.fr"
-        android:inputType="textEmailAddress" />
-
-    <Button
-        android:id="@+id/send"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:text="Envoyer" />
-
-</RelativeLayout>
