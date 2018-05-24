@@ -18,6 +18,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import de.cketti.mailto.EmailIntentBuilder;
+import fr.unice.polytech.polyblem.MainActivity;
 import fr.unice.polytech.polyblem.R;
 import fr.unice.polytech.polyblem.bdd.Database;
 import fr.unice.polytech.polyblem.model.Issue;
@@ -108,7 +109,9 @@ public class IssueFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         MenuItem item = menu.findItem(R.id.action_delete);
-        item.setVisible(true);
+        if (MainActivity.admin == 1) {
+            item.setVisible(true);
+        } else item.setVisible(false);
         super.onCreateOptionsMenu(menu, inflater);
     }
 

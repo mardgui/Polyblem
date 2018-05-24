@@ -18,10 +18,16 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String BACK_STACK_ROOT_TAG = "root_fragment";
     private static final String BACK_STACK_HELP_TAG = "help_fragment";
+    public static int admin = -1;
+    public static String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (admin == -1) {
+            startActivity(new Intent(MainActivity.this,
+                    ConnectionActivity.class));
+        }
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         invalidateOptionsMenu();
@@ -51,8 +57,15 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        MenuItem item = menu.findItem(R.id.action_delete);
-        item.setVisible(false);
+        menu.findItem(R.id.action_delete).setVisible(false);
+        menu.findItem(R.id.action_logout).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                startActivity(new Intent(MainActivity.this,
+                        ConnectionActivity.class));
+                return true;
+            }
+        });
         return true;
     }
 

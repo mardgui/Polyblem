@@ -34,6 +34,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+import fr.unice.polytech.polyblem.MainActivity;
 import fr.unice.polytech.polyblem.R;
 import fr.unice.polytech.polyblem.bdd.Database;
 import fr.unice.polytech.polyblem.model.Category;
@@ -168,23 +169,18 @@ public class DeclarationActivity extends AppCompatActivity implements View.OnCli
         Spinner locationSpinner = findViewById(R.id.location);
         EditText locationDetail = findViewById(R.id.location_detail);
         SeekBar urgencyValue = findViewById(R.id.urgencyValue);
-        EditText email = findViewById(R.id.email);
 
         String issueTitle = title.getText() != null ? title.getText().toString() : null;
         String issueDescription = description.getText() != null ? description.getText().toString() : "";
         String issueCategory = categorySpinner.getSelectedItem().toString();
         String issueLocation = locationSpinner.getSelectedItem().toString();
         String issueLocationDetail = locationDetail.getText() != null ? locationDetail.getText().toString() : "";
-        String issueEmail = email.getText() != null ? email.getText().toString() : null;
         String issueUrgencyValue = Urgency.getFromId(urgencyValue.getProgress());
         String date = new SimpleDateFormat("dd/MM/yy", Locale.FRENCH).format(Calendar.getInstance().getTime());
 
 
-        if (title.getText().length() == 0 || email.getText().length() == 0 || !android.util.Patterns.EMAIL_ADDRESS.matcher(email.getText()).matches()) {
+        if (title.getText().length() == 0) {
             if (title.getText().length() == 0) title.setError("Titre nécessaire");
-            if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email.getText()).matches())
-                email.setError("Email incorrect");
-            if (email.getText().length() == 0) email.setError("Email nécessaire");
             return null;
         }
         return new Issue(issueTitle,
@@ -193,7 +189,7 @@ public class DeclarationActivity extends AppCompatActivity implements View.OnCli
                 issueLocation,
                 issueLocationDetail,
                 issueUrgencyValue,
-                issueEmail,
+                MainActivity.email,
                 date);
     }
 

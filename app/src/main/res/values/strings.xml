@@ -21,4 +21,8 @@
     <string name="localisation_detail">Détails</string>
     <string name="urgency">Urgence</string>
     <string name="send">Envoyer</string>
+    <string name="welcome">Bienvenue sur Polyblem!</string>
+    <string name="connection">Connexion</string>
+    <string name="password">Mot de passe</string>
+    <string name="connection_validate">Se connecter</string>
 </resources>
