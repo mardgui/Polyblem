@@ -25,6 +25,7 @@ public class ConnectionActivity extends AppCompatActivity {
                     Intent mainActivity = new Intent(ConnectionActivity.this,
                             MainActivity.class);
                     startActivity(mainActivity);
+                    finish();
                 }
             }
         });
@@ -40,10 +41,12 @@ public class ConnectionActivity extends AppCompatActivity {
         }
         if (email.getText().toString().equals("jose.malard@unice.fr")) {
             MainActivity.admin = 1;
+            MainActivity.email = email.getText().toString();
             return true;
         }
         if (email.getText().toString().equals("julie.jolie@etu.unice.fr")) {
             MainActivity.admin = 0;
+            MainActivity.email = email.getText().toString();
             return true;
         }
         email.setError("Mauvaise combinaison d'email et mot de passe");
