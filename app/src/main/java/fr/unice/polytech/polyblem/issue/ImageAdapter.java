@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 import fr.unice.polytech.polyblem.R;
@@ -40,9 +41,17 @@ public class ImageAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup view, int position) {
         View myImageLayout = inflater.inflate(R.layout.slide, view, false);
-        ImageView myImage = myImageLayout.findViewById(R.id.image);
-        Bitmap image = BitmapFactory.decodeFile(images.get(position).getUrl());
-        myImage.setImageBitmap(Bitmap.createScaledBitmap(image, image.getScaledWidth(50), image.getScaledHeight(50), true));
+
+        ImageView imageView = myImageLayout.findViewById(R.id.image);
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 8;
+        final Bitmap image = BitmapFactory.decodeFile(images.get(position).getUrl(), options);
+        image.compress(Bitmap.CompressFormat.JPEG, 50, bos);
+        byte[] bitmapdata = bos.toByteArray();
+        imageView.setImageBitmap(BitmapFactory.decodeByteArray(bitmapdata, 0, bitmapdata.length));
+
         view.addView(myImageLayout, 0);
         return myImageLayout;
     }

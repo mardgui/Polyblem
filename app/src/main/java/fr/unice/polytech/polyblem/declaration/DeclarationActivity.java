@@ -53,6 +53,7 @@ public class DeclarationActivity extends AppCompatActivity implements View.OnCli
     private List<Photo> photoList = new ArrayList<>();
     private String mCurrentPhotoPath;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -169,15 +170,23 @@ public class DeclarationActivity extends AppCompatActivity implements View.OnCli
         SeekBar urgencyValue = findViewById(R.id.urgencyValue);
         EditText email = findViewById(R.id.email);
 
-        String issueTitle = title.getText() != null ? title.getText().toString() : "";
+        String issueTitle = title.getText() != null ? title.getText().toString() : null;
         String issueDescription = description.getText() != null ? description.getText().toString() : "";
         String issueCategory = categorySpinner.getSelectedItem().equals("Catégorie") ? null : categorySpinner.getSelectedItem().toString();
         String issueLocation = locationSpinner.getSelectedItem().equals("Lieu") ? null : locationSpinner.getSelectedItem().toString();
         String issueLocationDetail = locationDetail.getText() != null ? locationDetail.getText().toString() : "";
-        String issueEmail = email.getText() != null ? email.getText().toString() : "";
+        String issueEmail = email.getText() != null ? email.getText().toString() : null;
         String issueUrgencyValue = Urgency.getFromId(urgencyValue.getProgress());
         String date = new SimpleDateFormat("dd/MM/yy", Locale.FRENCH).format(Calendar.getInstance().getTime());
 
+
+        if (title.getText().length() == 0 || email.getText().length() == 0 || !android.util.Patterns.EMAIL_ADDRESS.matcher(email.getText()).matches()) {
+            if (title.getText().length() == 0) title.setError("Titre nécessaire");
+            if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email.getText()).matches())
+                email.setError("Email incorrect");
+            if (email.getText().length() == 0) email.setError("Email nécessaire");
+            return null;
+        }
         return new Issue(issueTitle,
                 issueCategory,
                 issueDescription,
@@ -194,13 +203,16 @@ public class DeclarationActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onClick(View view) {
                 Issue issue = createIssue();
-                Database database = new Database(getApplicationContext());
-                long id = database.addIssue(issue);
-                Log.i("DeclarationActivity", issue.toString());
-                for (int i = 0; i < photoList.size(); i++) {
-                    database.addPicture(id, photoList.get(i).getUrl());
+                if (issue != null) {
+                    System.out.println(issue.toString());
+                    Database database = new Database(getApplicationContext());
+                    long id = database.addIssue(issue);
+                    Log.i("DeclarationActivity", issue.toString());
+                    for (int i = 0; i < photoList.size(); i++) {
+                        database.addPicture(id, photoList.get(i).getUrl());
+                    }
+                    finish();
                 }
-                finish();
             }
         });
     }

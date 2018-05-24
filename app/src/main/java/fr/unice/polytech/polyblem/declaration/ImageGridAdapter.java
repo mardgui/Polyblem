@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.List;
 
@@ -33,6 +34,7 @@ public class ImageGridAdapter extends ArrayAdapter<Photo> {
 
     }
 
+
     @NonNull
     @Override
     public View getView(final int position, @Nullable View convertView, @NonNull final ViewGroup parent) {
@@ -44,8 +46,14 @@ public class ImageGridAdapter extends ArrayAdapter<Photo> {
 
         ImageView imageView = convertView.findViewById(R.id.image);
 
-        Bitmap image = BitmapFactory.decodeFile(photo.getUrl());
-        imageView.setImageBitmap(Bitmap.createScaledBitmap(image, image.getScaledWidth(50), image.getScaledHeight(50), true));
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 8;
+        final Bitmap image = BitmapFactory.decodeFile(photo.getUrl(), options);
+        image.compress(Bitmap.CompressFormat.JPEG, 20, bos);
+        byte[] bitmapdata = bos.toByteArray();
+        imageView.setImageBitmap(BitmapFactory.decodeByteArray(bitmapdata, 0, bitmapdata.length));
+
         Button button = convertView.findViewById(R.id.delete);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
