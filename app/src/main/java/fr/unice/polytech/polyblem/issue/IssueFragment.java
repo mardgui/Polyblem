@@ -40,18 +40,18 @@ public class IssueFragment extends Fragment {
         title.setTextColor(getResources().getColor(R.color.colorPrimary));
         setText(issue.getTitle(), title);
         setText(issue.getDate(), (TextView) getView().findViewById(R.id.date));
-        setText(issue.getCategory(), (TextView) getView().findViewById(R.id.categorie));
+        setText(issue.getCategory().getName().equals("Catégorie") ? null : issue.getCategory().getName(), (TextView) getView().findViewById(R.id.categorie));
         setText(issue.getDescription(), (TextView) getView().findViewById(R.id.description));
         setText(issue.getEmail(), (TextView) getView().findViewById(R.id.email));
         StringBuilder fullLocation = new StringBuilder();
 
-        fullLocation.append(issue.getLocation());
+        fullLocation.append(issue.getLocation().getName());
 
         if (issue.getLocationDetails() != null && !issue.getLocationDetails().equals("")) {
             fullLocation.append(" ").append(issue.getLocationDetails());
         }
 
-        if (fullLocation.toString().equals("null")) {
+        if (fullLocation.toString().equals("null") || fullLocation.toString().equals("Lieu")) {
             fullLocation = new StringBuilder();
             fullLocation.append("Lieu non indiqué");
         }
@@ -82,7 +82,7 @@ public class IssueFragment extends Fragment {
     }
 
     private void setText(String string, TextView textView) {
-        if (string != null) {
+        if (string != null && !string.equals("")) {
             textView.setText(string);
         } else
             textView.setText("Non indiqué");

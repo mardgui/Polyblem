@@ -172,8 +172,8 @@ public class DeclarationActivity extends AppCompatActivity implements View.OnCli
 
         String issueTitle = title.getText() != null ? title.getText().toString() : null;
         String issueDescription = description.getText() != null ? description.getText().toString() : "";
-        String issueCategory = categorySpinner.getSelectedItem().equals("Catégorie") ? null : categorySpinner.getSelectedItem().toString();
-        String issueLocation = locationSpinner.getSelectedItem().equals("Lieu") ? null : locationSpinner.getSelectedItem().toString();
+        String issueCategory = categorySpinner.getSelectedItem().toString();
+        String issueLocation = locationSpinner.getSelectedItem().toString();
         String issueLocationDetail = locationDetail.getText() != null ? locationDetail.getText().toString() : "";
         String issueEmail = email.getText() != null ? email.getText().toString() : null;
         String issueUrgencyValue = Urgency.getFromId(urgencyValue.getProgress());

@@ -3,7 +3,6 @@ package fr.unice.polytech.polyblem.issueList;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,13 +50,13 @@ public class IssueCustomAdapter extends ArrayAdapter<Issue> {
 
         StringBuilder fullLocation = new StringBuilder();
 
-        fullLocation.append(issue.getLocation());
+        fullLocation.append(issue.getLocation().getName());
 
         if (issue.getLocationDetails() != null && !issue.getLocationDetails().equals("")) {
             fullLocation.append(" ").append(issue.getLocationDetails());
         }
 
-        if (fullLocation.toString().equals("null")) {
+        if (fullLocation.toString().equals("null") || fullLocation.toString().equals("Lieu")) {
             fullLocation = new StringBuilder();
             fullLocation.append("Lieu non indiqué");
         }
@@ -80,11 +79,11 @@ public class IssueCustomAdapter extends ArrayAdapter<Issue> {
                     issueList.add(issue);
                 } else if (issue.getTitle() != null && issue.getTitle().toLowerCase(Locale.getDefault()).contains(charText)) {
                     issueList.add(issue);
-                } else if (issue.getLocation() != null && issue.getLocation().toLowerCase(Locale.getDefault()).contains(charText)) {
+                } else if (issue.getLocation() != null && issue.getLocation().getName().toLowerCase(Locale.getDefault()).contains(charText)) {
                     issueList.add(issue);
                 } else if (issue.getEmail() != null && issue.getEmail().toLowerCase(Locale.getDefault()).contains(charText)) {
                     issueList.add(issue);
-                } else if (issue.getCategory() != null && issue.getCategory().toLowerCase(Locale.getDefault()).contains(charText)) {
+                } else if (issue.getCategory() != null && issue.getCategory().getName().toLowerCase(Locale.getDefault()).contains(charText)) {
                     issueList.add(issue);
                 }
             }

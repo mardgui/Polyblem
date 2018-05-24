@@ -19,6 +19,13 @@ public enum Location {
         this.name = name;
     }
 
+    public static Location getFromName(String name) {
+        for (Location location : Location.values()) {
+            if (location.name.equals(name)) return location;
+        }
+        throw new IllegalArgumentException("This location does not exist!");
+    }
+
     public String getName() {
         return name;
     }

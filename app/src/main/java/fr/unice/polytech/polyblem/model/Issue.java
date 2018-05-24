@@ -11,20 +11,20 @@ public class Issue implements Parcelable {
 
     private int idIssue;
     private String titleIssue; //obli
-    private String category;
+    private Category category;
     private String description;
-    private String location;
+    private Location location;
     private String locationDetails;
     private Urgency urgency;
     private String email; //obli
     private String date;
 
-    public Issue(int idIssue, String titleIssue, String category,  String description, String location, String locationDetails, String urgency, String email, String date) {
+    public Issue(int idIssue, String titleIssue, String category, String description, String location, String locationDetails, String urgency, String email, String date) {
         this.idIssue = idIssue;
-        this.category = category;
+        this.category = Category.getFromName(category);
         this.titleIssue = titleIssue;
         this.description = description;
-        this.location = location;
+        this.location = Location.getFromName(location);
         this.locationDetails = locationDetails;
         this.urgency = Urgency.getFromName(urgency);
         this.email = email;
@@ -32,10 +32,10 @@ public class Issue implements Parcelable {
     }
 
     public Issue(String titleIssue, String category, String description, String location, String locationDetails, String urgency, String email, String date) {
-        this.category = category;
+        this.category = Category.getFromName(category);
         this.titleIssue = titleIssue;
         this.description = description;
-        this.location = location;
+        this.location = Location.getFromName(location);
         this.locationDetails = locationDetails;
         this.urgency = Urgency.getFromName(urgency);
         this.email = email;
@@ -46,7 +46,7 @@ public class Issue implements Parcelable {
         return idIssue;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
@@ -58,7 +58,7 @@ public class Issue implements Parcelable {
         return description;
     }
 
-    public String getLocation() {
+    public Location getLocation() {
         return location;
     }
 
@@ -102,10 +102,11 @@ public class Issue implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(idIssue);
         dest.writeString(titleIssue);
-        dest.writeString(category);
+        dest.writeString(category.getName());
         dest.writeString(description);
-        dest.writeString(location);
+        dest.writeString(location.getName());
         dest.writeString(locationDetails);
+        dest.writeString(urgency.getName());
         dest.writeString(email);
         dest.writeString(date);
     }
@@ -122,11 +123,12 @@ public class Issue implements Parcelable {
 
     public Issue(Parcel in) {
         this.idIssue = in.readInt();
-        this.category = in.readString();
+        this.category = Category.getFromName(in.readString());
         this.titleIssue = in.readString();
         this.description = in.readString();
-        this.location = in.readString();
+        this.location = Location.getFromName(in.readString());
         this.locationDetails = in.readString();
+        this.urgency = Urgency.getFromName(in.readString());
         this.email = in.readString();
         this.date = in.readString();
     }
