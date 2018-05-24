@@ -42,11 +42,11 @@ public class Database extends SQLiteOpenHelper {
                     ISSUE_DATE + " TEXT)";
 
     private static final String ISSUE_INSERT = "INSERT INTO issue(titleissue, category, description, location, locationdetails, urgency, email, dateissue) " +
-            "VALUES ('Issue1', 'Casse', '','Bâtiment O', '+308', 'Faible', 'marion@etu.fr', '16/05/18');";
+            "VALUES ('Rideaux cassés', 'Casse', 'Les rideaux ne descendent pas','Bâtiment O', '+109', 'Moyen', 'quentin.guimard@etu.unice.fr', '16/05/18');";
     private static final String ISSUE_INSERT2 = " INSERT INTO issue(titleissue, category, description, location,locationdetails, urgency, email, dateissue)" +
-            "VALUES ('Issue2', 'Propreté', '','Toilettes', 'RDC Bâtiment E', 'Forte', 'florian@etu.fr', '10/05/18');";
+            "VALUES ('Toilettes inondées', 'Propreté', 'Tout les lavabos sont bouchés','Toilettes', 'RDC Bâtiment E', 'Forte', 'florian.salord@etu.unice.fr', '10/05/18');";
     private static final String ISSUE_INSERT3 = "INSERT INTO issue(titleissue, category, description, location,locationdetails, urgency, email, dateissue)" +
-            "VALUES ('Issue3', 'Autre', '', 'Parking', 'P2', 'Moyen', 'quentin@etu.fr', '14/05/18');";
+            "VALUES ('Vidéoprojecteur dysfonctionnel', 'Dysfonctionnement', 'Le vidéoprojecteur affiche une image suggestive quand un périphérique est branché.', 'Bâtiment E', '+144', 'Faible', 'marion.marguerettaz@etu.unice.fr', '14/05/18');";
 
 
     private static final String PHOTO_TABLE_NAME = "photos";
