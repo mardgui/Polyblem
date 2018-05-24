@@ -18,10 +18,15 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String BACK_STACK_ROOT_TAG = "root_fragment";
     private static final String BACK_STACK_HELP_TAG = "help_fragment";
+    public static int admin = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (admin == -1) {
+            startActivity(new Intent(MainActivity.this,
+                    ConnectionActivity.class));
+        }
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         invalidateOptionsMenu();
