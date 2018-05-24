@@ -77,9 +77,7 @@ public class IssueFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         setListeners();
-
         setHasOptionsMenu(true);
-
     }
 
     private void setText(String string, TextView textView) {
@@ -108,10 +106,13 @@ public class IssueFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        MenuItem item = menu.findItem(R.id.action_delete);
         if (MainActivity.admin == 1) {
-            item.setVisible(true);
-        } else item.setVisible(false);
+            menu.findItem(R.id.action_delete).setVisible(true);
+            menu.findItem(R.id.action_help).setVisible(true);
+        } else {
+            menu.findItem(R.id.action_delete).setVisible(false);
+            menu.findItem(R.id.action_help).setVisible(false);
+        }
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -127,30 +128,34 @@ public class IssueFragment extends Fragment {
     }
 
     private void setListeners() {
-        Button sendEmail = getView().findViewById(R.id.send_email);
-        sendEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                EmailIntentBuilder.from(getActivity())
-                        .to(issue.getEmail())
-                        .subject("Incident : " + issue.getTitle() + " - " + issue.getDate())
-                        .body("J'aimerais plus détails concernant cet incident : \n")
-                        .start();
-            }
-        });
+        if (MainActivity.admin == 1) {
+            Button sendEmail = getView().findViewById(R.id.send_email);
+            sendEmail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    EmailIntentBuilder.from(getActivity())
+                            .to(issue.getEmail())
+                            .subject("Incident : " + issue.getTitle() + " - " + issue.getDate())
+                            .body("J'aimerais plus détails concernant cet incident : \n")
+                            .start();
+                }
+            });
 
-        Button addToAgenda = getView().findViewById(R.id.add_to_agenda);
-        addToAgenda.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final Intent agendaIntent = new Intent(Intent.ACTION_EDIT);
-                agendaIntent.setType("vnd.android.cursor.item/event");
-                agendaIntent.putExtra("title", "Incident : " + issue.getTitle());
-                agendaIntent.putExtra("description", "S'occuper de l'incident " + issue.getTitle() + " déclaré le " + issue.getDate() + " :\n" + issue.getDescription());
+            Button addToAgenda = getView().findViewById(R.id.add_to_agenda);
+            addToAgenda.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final Intent agendaIntent = new Intent(Intent.ACTION_EDIT);
+                    agendaIntent.setType("vnd.android.cursor.item/event");
+                    agendaIntent.putExtra("title", "Incident : " + issue.getTitle());
+                    agendaIntent.putExtra("description", "S'occuper de l'incident " + issue.getTitle() + " déclaré le " + issue.getDate() + " :\n" + issue.getDescription());
 
-                startActivity(Intent.createChooser(agendaIntent, "Ajouter à l'agenda..."));
-            }
-        });
+                    startActivity(Intent.createChooser(agendaIntent, "Ajouter à l'agenda..."));
+                }
+            });
+        } else {
+            getView().findViewById(R.id.actions).setVisibility(View.INVISIBLE);
+        }
 
     }
 }
