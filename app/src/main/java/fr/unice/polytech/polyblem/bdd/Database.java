@@ -35,18 +35,18 @@ public class Database extends SQLiteOpenHelper {
             ISSUE_TITLE+" TEXT NOT NULL,"+
             ISSUE_CATEGORY + " TEXT CHECK (category IN ('Manque','Casse','Dysfonctionnement', 'Propreté', 'Autre')), "+
             ISSUE_DESCRIPTION + " TEXT," +
-            ISSUE_LOCATION + " TEXT,"+
+            ISSUE_LOCATION + " TEXT CHECK (location IN ('Parking','Toilettes','Foyer','Bâtiment O','Bâtiment E', 'Autre')),"+
             ISSUE_LOCATIONDETAILS +" TEXT,"+
             ISSUE_URGENCY + " TEXT CHECK (urgency IN ('Faible','Moyen','Forte')),"+
             ISSUE_EMAIL+" TEXT,"+
             ISSUE_DATE + " TEXT)";
 
     private static final String ISSUE_INSERT = "INSERT INTO issue(titleissue, category, description, location, locationdetails, urgency, email, dateissue) " +
-            "VALUES ('Issue1', 'Casse', '','Bat O', '355', 'Faible', 'marion@etu.fr', '16/05/18');";
+            "VALUES ('Issue1', 'Casse', '','Bâtiment O', '+308', 'Faible', 'marion@etu.fr', '16/05/18');";
     private static final String ISSUE_INSERT2 =  " INSERT INTO issue(titleissue, category, description, location,locationdetails, urgency, email, dateissue)" +
-            "VALUES ('Issue2', 'Propreté', '','Bat E', '235', 'Forte', 'florian@etu.fr', '10/05/18');";
+            "VALUES ('Issue2', 'Propreté', '','Toilettes', 'RDC Bâtiment E', 'Forte', 'florian@etu.fr', '10/05/18');";
     private static final String ISSUE_INSERT3 = "INSERT INTO issue(titleissue, category, description, location,locationdetails, urgency, email, dateissue)" +
-            "VALUES ('Issue3', 'Autre', '', 'Bat W', '235', 'Moyen', 'quentin@etu.fr', '14/05/18');";
+            "VALUES ('Issue3', 'Autre', '', 'Parking', 'P2', 'Moyen', 'quentin@etu.fr', '14/05/18');";
 
 
     private static final String PHOTO_TABLE_NAME = "photos";
@@ -59,7 +59,7 @@ public class Database extends SQLiteOpenHelper {
             PHOTO_URL + " TEXT NOT NULL)";
 
 
-    private static final String ISSUE_DROP_TABLE = "DROP TABLE IF EXISTS" + ISSUE_TABLE_NAME+";";
+    private static final String ISSUE_DROP_TABLE = "DROP TABLE IF EXISTS " + ISSUE_TABLE_NAME+";";
 
 
     private static String DB_NAME = "polyblem_database";

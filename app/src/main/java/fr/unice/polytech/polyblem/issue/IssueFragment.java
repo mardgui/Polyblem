@@ -43,6 +43,20 @@ public class IssueFragment extends Fragment {
         setText(issue.getCategory(), (TextView) getView().findViewById(R.id.categorie));
         setText(issue.getDescription(), (TextView) getView().findViewById(R.id.description));
         setText(issue.getEmail(), (TextView) getView().findViewById(R.id.email));
+        StringBuilder fullLocation = new StringBuilder();
+
+        fullLocation.append(issue.getLocation());
+
+        if (issue.getLocationDetails() != null && !issue.getLocationDetails().equals("")) {
+            fullLocation.append(" ").append(issue.getLocationDetails());
+        }
+
+        if (fullLocation.toString().equals("null")) {
+            fullLocation = new StringBuilder();
+            fullLocation.append("Lieu non indiqué");
+        }
+
+        setText(fullLocation.toString(), (TextView) getView().findViewById(R.id.location));
 
         ImageView urgency = getView().findViewById(R.id.urgency);
         urgency.setImageResource(issue.getUrgency().getId());

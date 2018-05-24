@@ -20,7 +20,7 @@ import fr.unice.polytech.polyblem.model.Issue;
 
 public class IssueCustomAdapter extends ArrayAdapter<Issue> {
 
-    private List<Issue> issueList = null;
+    private List<Issue> issueList;
     private ArrayList<Issue> arrayList;
 
     public IssueCustomAdapter(Context context, List<Issue> issueList) {
@@ -48,7 +48,21 @@ public class IssueCustomAdapter extends ArrayAdapter<Issue> {
 
         title.setText(issue.getTitle());
         date.setText(issue.getDate());
-        location.setText(issue.getLocation());
+
+        StringBuilder fullLocation = new StringBuilder();
+
+        fullLocation.append(issue.getLocation());
+
+        if (issue.getLocationDetails() != null && !issue.getLocationDetails().equals("")) {
+            fullLocation.append(" ").append(issue.getLocationDetails());
+        }
+
+        if (fullLocation.toString().equals("null")) {
+            fullLocation = new StringBuilder();
+            fullLocation.append("Lieu non indiqué");
+        }
+
+        location.setText(fullLocation);
 
         return convertView;
     }
@@ -60,7 +74,17 @@ public class IssueCustomAdapter extends ArrayAdapter<Issue> {
             issueList.addAll(arrayList);
         } else {
             for (Issue issue : arrayList) {
-                if (issue.getDescription().toLowerCase(Locale.getDefault()).contains(charText) || issue.getLocationDetails().toLowerCase(Locale.getDefault()).contains(charText) || issue.getTitle().toLowerCase(Locale.getDefault()).contains(charText) || issue.getLocation().toLowerCase(Locale.getDefault()).contains(charText) || issue.getEmail().toLowerCase(Locale.getDefault()).contains(charText) || issue.getCategory().toLowerCase(Locale.getDefault()).contains(charText)) {
+                if (issue.getDescription() != null && issue.getDescription().toLowerCase(Locale.getDefault()).contains(charText)) {
+                    issueList.add(issue);
+                } else if (issue.getLocationDetails() != null && issue.getLocationDetails().toLowerCase(Locale.getDefault()).contains(charText)) {
+                    issueList.add(issue);
+                } else if (issue.getTitle() != null && issue.getTitle().toLowerCase(Locale.getDefault()).contains(charText)) {
+                    issueList.add(issue);
+                } else if (issue.getLocation() != null && issue.getLocation().toLowerCase(Locale.getDefault()).contains(charText)) {
+                    issueList.add(issue);
+                } else if (issue.getEmail() != null && issue.getEmail().toLowerCase(Locale.getDefault()).contains(charText)) {
+                    issueList.add(issue);
+                } else if (issue.getCategory() != null && issue.getCategory().toLowerCase(Locale.getDefault()).contains(charText)) {
                     issueList.add(issue);
                 }
             }
