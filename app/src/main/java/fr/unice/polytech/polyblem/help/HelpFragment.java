@@ -22,12 +22,10 @@ public class HelpFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         TextView textEmail = getView().findViewById(R.id.email_text);
-        textEmail.setText("Ce bouton permet d'envoyer un mail au déclarateur de l'incident.\n " +
-                "Ce mail sera près remplis avec les informations concernant l'incident.\n" +
-                "Vous pourrez choisir l'application que vous souhaitez pour effectuer cette action.");
+        textEmail.setText(R.string.help_email);
 
         TextView textAgenda = getView().findViewById(R.id.agenda_text);
-        textAgenda.setText("Ce bouton permet d'ajouter un incident à l'agenda de votre choix.");
+        textAgenda.setText(R.string.help_agenda);
 
         getActivity().findViewById(R.id.fab).setVisibility(View.GONE);
 

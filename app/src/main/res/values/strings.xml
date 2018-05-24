@@ -25,4 +25,8 @@
     <string name="connection">Connexion</string>
     <string name="password">Mot de passe</string>
     <string name="connection_validate">Se connecter</string>
+    <string name="help_email">Ce bouton permet d\'envoyer un email au déclarateur de l\'incident.
+                Il sera pré-rempli avec les informations concernant l\'incident.
+                Vous pourrez choisir l\'application mail que vous souhaitez pour effectuer cette action.</string>
+    <string name="help_agenda">Ce bouton permet d\'ajouter un incident à l\'agenda de votre choix.</string>
 </resources>

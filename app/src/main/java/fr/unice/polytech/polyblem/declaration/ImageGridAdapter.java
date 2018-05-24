@@ -34,7 +34,6 @@ public class ImageGridAdapter extends ArrayAdapter<Photo> {
 
     }
 
-
     @NonNull
     @Override
     public View getView(final int position, @Nullable View convertView, @NonNull final ViewGroup parent) {

@@ -50,10 +50,7 @@ import fr.unice.polytech.polyblem.model.Urgency;
 public class DeclarationActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final int REQUEST_TAKE_PHOTO = 1;
-
     private List<Photo> photoList = new ArrayList<>();
-    private String mCurrentPhotoPath;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,16 +147,11 @@ public class DeclarationActivity extends AppCompatActivity implements View.OnCli
 
     private File createImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.FRENCH).format(Calendar.getInstance().getTime());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,
+        return File.createTempFile(
+                "JPEG_" + timeStamp + "_",
                 ".jpg",
-                storageDir
+                getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         );
-
-        mCurrentPhotoPath = image.getAbsolutePath();
-        return image;
     }
 
     private Issue createIssue() {
@@ -180,7 +172,9 @@ public class DeclarationActivity extends AppCompatActivity implements View.OnCli
 
 
         if (title.getText().length() == 0) {
-            if (title.getText().length() == 0) title.setError("Titre nécessaire");
+            if (title.getText().length() == 0) {
+                title.setError("Titre nécessaire");
+            }
             return null;
         }
         return new Issue(issueTitle,
@@ -218,38 +212,8 @@ public class DeclarationActivity extends AppCompatActivity implements View.OnCli
         for (Category category : Category.values()) {
             categories.add(category.getName());
         }
-
-        Spinner categorySpinner = findViewById(R.id.category);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(DeclarationActivity.this, android.R.layout.simple_spinner_item, categories) {
-            @Override
-            public boolean isEnabled(int position) {
-                return position != 0;
-            }
-
-            @Override
-            public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent) {
-                View view = super.getDropDownView(position, convertView, parent);
-                TextView textView = (TextView) view;
-                textView.setTextColor(position == 0 ? Color.GRAY : Color.BLACK);
-                return view;
-            }
-        };
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        categorySpinner.setAdapter(adapter);
-        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedCategory = (String) parent.getItemAtPosition(position);
-                if (position > 0) {
-                    Toast.makeText(getApplicationContext(), "Sélectionné : " + selectedCategory, Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
+        Spinner spinner = findViewById(R.id.category);
+        setSpinner(categories, spinner);
     }
 
     private void setLocationSpinner() {
@@ -257,9 +221,12 @@ public class DeclarationActivity extends AppCompatActivity implements View.OnCli
         for (Location location : Location.values()) {
             locations.add(location.getName());
         }
+        Spinner spinner = findViewById(R.id.location);
+        setSpinner(locations, spinner);
+    }
 
-        Spinner locationSpinner = findViewById(R.id.location);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(DeclarationActivity.this, android.R.layout.simple_spinner_item, locations) {
+    private void setSpinner(List<String> list, Spinner spinner) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(DeclarationActivity.this, android.R.layout.simple_spinner_item, list) {
             @Override
             public boolean isEnabled(int position) {
                 return position != 0;
@@ -275,13 +242,13 @@ public class DeclarationActivity extends AppCompatActivity implements View.OnCli
         };
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        locationSpinner.setAdapter(adapter);
-        locationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedLocation = (String) parent.getItemAtPosition(position);
+                String selected = (String) parent.getItemAtPosition(position);
                 if (position > 0) {
-                    Toast.makeText(getApplicationContext(), "Sélectionné : " + selectedLocation, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Sélectionné : " + selected, Toast.LENGTH_SHORT).show();
                 }
             }
 
